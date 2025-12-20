@@ -13,7 +13,7 @@ const Card = ({ data }) => {
 
   return (
     <Link href={`/card/${slug}`}>
-      <div className="relative p-3 max-w-60 rounded-2xl overflow-hidden cursor-pointer group">
+      <div className="relative p-3 min-w-60 max-w-60 rounded-2xl overflow-hidden cursor-pointer group">
 
         <Image
           src={image}
@@ -35,8 +35,8 @@ const Card = ({ data }) => {
             className="rounded-xl w-60 h-60 object-cover shadow-lg"
           />
           <div className="flex gap-1 flex-col">
-            <h2 className="text-md font-bold line-clamp-1">{title}</h2>
-            <p className="text-sm text-gray-200">
+            <h2 className="text-lg md:text-md font-bold line-clamp-1">{title}</h2>
+            <p className="text-xs md:text-sm text-gray-200">
               Created {formattedDate}
             </p>
           </div>

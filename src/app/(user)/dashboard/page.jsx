@@ -7,6 +7,8 @@ import EventCard from "@/Components/EventCard";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/Components/ui/dialog";
 import Button from "@/Components/Button";
 import Image from "next/image";
+import MomentoLoader from "@/Components/MomentoLoader/MomentoLoader";
+import { Carousel, CarouselContent, CarouselItem } from "@/Components/ui/carousel";
 
 const Dashboard = () => {
   const { user, isLoaded } = useUser();
@@ -49,11 +51,10 @@ const Dashboard = () => {
     fetchCards();
   }, [isLoaded, user]);
 
-  if (!isLoaded) return <div>Loading...</div>; // show loading until user is ready
+  if (!isLoaded) return <div><MomentoLoader /></div>; // show loading until user is ready
 
   return (
     <div>
-
       <video
         className="fixed top-0 left-0 w-full h-full object-top object-cover -z-1"
         src="/web.mp4"
@@ -62,7 +63,7 @@ const Dashboard = () => {
         muted
         playsInline
       />
-      <header className=" flex items-center justify-between px-14 py-10">
+      <header className="flex flex-row items-center justify-between px-4 md:px-14 py-6 md:py-10 gap-4">
         <Link href={"/"}>
           <Image
             src={"/momento.svg"}
@@ -75,14 +76,11 @@ const Dashboard = () => {
 
 
 
-        <div className="flex gap-4">
+        <div className="flex gap-2 md:gap-5">
           <Dialog className="">
             <DialogTrigger>
               <Button label="Create" variant="light" />
             </DialogTrigger>
-
-
-
             <DialogContent className="text-white bg-black cursor-pointer">
               <DialogHeader>
                 <DialogTitle>Create New</DialogTitle>
@@ -165,59 +163,93 @@ const Dashboard = () => {
               </DialogDescription>
             </DialogContent>
           </Dialog>
-          <Link href={"/"} className="flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#e3e3e3"><path d="M160-200v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H600q-17 0-28.5-11.5T560-160v-200q0-17-11.5-28.5T520-400h-80q-17 0-28.5 11.5T400-360v200q0 17-11.5 28.5T360-120H240q-33 0-56.5-23.5T160-200Z" /></svg>
+          <Link href={"/"} className="flex mr-1  items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#fff"><path d="M160-200v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H600q-17 0-28.5-11.5T560-160v-200q0-17-11.5-28.5T520-400h-80q-17 0-28.5 11.5T400-360v200q0 17-11.5 28.5T360-120H240q-33 0-56.5-23.5T160-200Z" /></svg>
           </Link>
-          <div className="scale-135 flex gap-4 items-center justify-center">
+          <div className="scale-135  flex items-center justify-center">
             <UserButton />
           </div>
         </div>
       </header>
-      <div className="flex flex-col font-bold text-3xl px-14 gap-2 text-white">
+
+
+
+      <div className="flex flex-col mt-8 md:mt-0 font-bold text-2xl md:text-3xl px-4 md:px-14 gap-2 text-white">
         <h1>Welcome back {user.fullName}!</h1>
         <p className="text-xl">You have {events.length} upcoming events.</p>
       </div>
 
-      <div className="px-10 py-5 flex flex-col gap-3">
+      <div className="px-4 md:px-14 py-5">
         {events.length === 0 ? (
-          "No cards yet"
+          "No events yet"
         ) : (
-          <ul className="flex gap-2 flex-wrap">
-            {events.map((card) => (
-              <EventCard key={card._id} data={card} />
-            ))}
-          </ul>
+          <Carousel
+            opts={{
+              align: "start",
+              dragFree: true,
+            }}
+            className="relative"
+          >
+            {/* Right fade indicator */}
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
+
+            <CarouselContent className="">
+              {events.map((event) => (
+                <CarouselItem
+                  key={event._id}
+                  className="basis-[70%] sm:basis-[60%] md:basis-[40%] lg:basis-[25%]"
+                >
+                  <EventCard data={event} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         )}
       </div>
 
-      <div className="px-14 py-5 flex flex-col gap-3 text-white">
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h1 className=" font-bold text-2xl">Your Cards</h1>
-            <p>All the cards you've created</p>
-          </div>
 
-          <Link href="/create/card">
-            <button className="px-6 py-3 bg-gray-700/50 cursor-pointer hover:bg-gray-800/80 transition duration-300 rounded-full text-white flex items-center justify-center gap-1">
-              Craete Card <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+      <div className="px-4 md:px-14 flex flex-col justify-center gap-3 text-white">
+        <div className="flex items-center justify-between mb-3">
+          <div className="font-bold text-2xl md:text-3xl text-white">
+            <h1 className=" font-bold text-2xl">Your Cards</h1>
+            <p className="text-lg md:text-md">All the cards you've created</p>
+          </div>
+          <Link href="/create/card" className="flex items-center justify-center">
+            <button className="p-2 md:px-6 md:py-3 bg-gray-700/50 cursor-pointer hover:bg-gray-800/80 transition duration-300 rounded-full text-white flex items-center justify-center gap-1">
+              <span className="hidden md:flex">Craete Card</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
             </button>
           </Link>
-
         </div>
+
+
         {myCards.length === 0 ? (
           "No cards yet"
         ) : (
-          <ul className="flex gap-x-5 gap-y-6 flex-wrap">
-            {myCards.map((card) => (
-              <Card key={card._id} data={card} />
-            ))}
-          </ul>
+          <Carousel
+            opts={{
+              align: "start",
+              dragFree: true,
+            }}
+            className="relative"
+          >
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
+            <CarouselContent className="">
+
+              {myCards.map((card) => (
+                <CarouselItem
+                  key={event._id}
+                  className="basis-[60%] sm:basis-[20%] md:basis-[20%] lg:basis-[20%]"
+                >
+                  <Card key={card._id} data={card} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+          </Carousel>
         )}
       </div>
 
-
-
-      <footer className="border-t-1 p-10 border-gray-600 flex items-center justify-between">
+      <footer className="border-t-1 mt-10 p-10 border-gray-600 flex flex-col md:flex-row gap-3 items-center justify-between">
         <Link href={"/"} className="flex gap-3 items-center justify-center">
           <Image
             src={"/momento.svg"}
@@ -226,12 +258,12 @@ const Dashboard = () => {
             width={500}
             className="h-6 w-auto cursor-pointer"
           />
-          <h1 className="text-white font-semibold">
+          <h1 className="text-white text-sm md:text-lg font-semibold">
             Create an event for free 🎉
           </h1>
         </Link>
         <Link href={"/"} className="flex gap-3 items-center justify-center">
-          <h1 className="text-white font-semibold">Developed by</h1>
+          <h1 className="text-white font-semibold text-sm md:text-lg">Developed by</h1>
           <h1 className="text-2xl text-white font-primary">Siddharaj Gohil</h1>
         </Link>
       </footer>

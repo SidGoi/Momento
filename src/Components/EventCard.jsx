@@ -13,7 +13,7 @@ const EventCard = ({ data }) => {
 
   return (
     <Link href={`/event/${data.slug}`}>
-      <div className="flex flex-col max-w-70 gap-3 cursor-pointer p-4  hover:bg-gray-800/80 text-white w-fit transition duration-200">
+      <div className="flex flex-col min-w-70 max-w-70 gap-3 cursor-pointer p-4  hover:bg-gray-800/80 text-white w-fit transition duration-200">
         <div className="relative">
 
           <Image
@@ -29,8 +29,8 @@ const EventCard = ({ data }) => {
         </div>
 
         <div className='flex flex-col gap-1'>
-          <h2 className="text-xl font-bold">{title}</h2>
-          <p className="text-gray-400 font-semibold flex gap-2 items-center">
+          <h2 className="text-lg md:text-xl font-bold line-clamp-1">{title}</h2>
+          <p className="text-gray-400 font-semibold flex gap-2 text-sm items-center">
             Hosted by{" "}
             <Image
               src={host.avatar}
