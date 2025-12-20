@@ -22,9 +22,8 @@ export default async function CardPage({ params }) {
 
     return (
       <main
-        className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center ${
-          data.background?.theme === "dark" ? "text-black" : "text-white"
-        }`}
+        className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"
+          }`}
       >
         {/* Background Layer */}
         {isVideo ? (
@@ -35,6 +34,7 @@ export default async function CardPage({ params }) {
           />
         ) : (
           <Image
+            priority
             src={data.background?.url || "/default-bg.jpg"}
             alt="background"
             fill
@@ -44,7 +44,7 @@ export default async function CardPage({ params }) {
 
         {/* Content Layer */}
         <div className="relative z-10 flex flex-col items-center justify-center gap-8 p-6 text-center">
-          
+
           {/* Sender Info */}
           <div className="flex items-center gap-3 bg-black/10 backdrop-blur-md px-8 cursor-pointer py-2 rounded-full border border-white/10">
             <span className="text-sm opacity-80">From</span>
