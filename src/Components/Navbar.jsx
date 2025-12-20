@@ -9,7 +9,7 @@ const Navbar = () => {
         <header>
             <nav className='flex bg-white px-10 py-8 rounded-b-xl mx-10 items-center justify-between'>
                 <Link href={'/'}>
-                    <Image src={'/momento-dark.svg'} width={500} height={500} className='h-8 w-auto cursor-pointer' />
+                    <Image src={'/momento-dark.svg'} alt="Momento Logo" width={500} height={500} className='h-8 w-auto cursor-pointer' />
                 </Link>
                 <div className='flex items-center justify-center gap-5'>
                     <NavLink

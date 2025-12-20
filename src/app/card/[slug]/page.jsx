@@ -1,3 +1,5 @@
+import { connectDB } from "lib/db";
+import Card from "models/Card";
 import Image from "next/image";
 import React from "react";
 
@@ -76,5 +78,23 @@ export default async function CardPage({ params }) {
   } catch (error) {
     console.error(error);
     return <div>Something went wrong</div>;
+  }
+}
+
+export async function DELETE(req, { params }) {
+  await connectDB();
+  const { slug } = await params;
+
+  try {
+    const deletedCard = await Card.findOneAndDelete({ slug });
+
+    if (!deletedCard) {
+      return NextResponse.json({ error: "Card not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Card deleted successfully" }, { status: 200 });
+  } catch (error) {
+    console.error("Delete Error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

@@ -1,5 +1,12 @@
 // src/app/layout.js or RootLayout.js
-import { Poppins, Pacifico, Patua_One, Bebas_Neue, Space_Mono, Quicksand } from "next/font/google";
+import {
+  Poppins,
+  Pacifico,
+  Patua_One,
+  Bebas_Neue,
+  Space_Mono,
+  Quicksand,
+} from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
@@ -10,10 +17,9 @@ export const poppins = Poppins({
   subsets: ["latin"],
 });
 export const quicksand = Quicksand({
-  weight: ["400", "500", "600", "700",],
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
-
 
 export const pacifico = Pacifico({
   weight: "400",
@@ -35,7 +41,6 @@ export const spaceMono = Space_Mono({
   subsets: ["latin"],
 });
 
-
 export const metadata = {
   title: "Momento",
   description: "Create, Connect & Celebrate!",
@@ -45,8 +50,11 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={quicksand.className}>{children}</body>
-        <Toaster position="bottom-right" richColors theme="dark" />
+        <body className={quicksand.className}>
+          {children}
+
+          <Toaster position="bottom-right" richColors theme="dark" />
+        </body>
       </html>
     </ClerkProvider>
   );

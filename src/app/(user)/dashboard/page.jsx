@@ -56,9 +56,14 @@ const Dashboard = () => {
     );
   }
   // Inside Dashboard.js
+  // Function for events
   const handleRemoveEvent = (slug) => {
-    // This filters out the deleted event and updates the UI immediately
-    setEvents((prevEvents) => prevEvents.filter((event) => event.slug !== slug));
+    setEvents((prev) => prev.filter((event) => event.slug !== slug));
+  };
+
+  // NEW: Function for cards
+  const handleRemoveCard = (slug) => {
+    setMyCards((prev) => prev.filter((card) => card.slug !== slug));
   };
   return (
     <div>
@@ -85,7 +90,7 @@ const Dashboard = () => {
 
         <div className="flex gap-2 md:gap-5">
           <Dialog className="">
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <Button label="Create" variant="light" />
             </DialogTrigger>
             <DialogContent className="text-white bg-black cursor-pointer">
@@ -188,7 +193,21 @@ const Dashboard = () => {
 
       <div className="px-4 md:px-14 py-5">
         {events.length === 0 ? (
-          "No events yet"
+          <div className="flex text-white font-semibold gap-2 items-center justify-center flex-col p-5">
+            <span className="text-7xl">
+              😐
+            </span>
+            <span className="text-2xl">
+              No Event yet
+            </span>
+            <Link href="/create/event" className="flex items-center justify-center">
+              <button className="inline-flex items-center p-3 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+                <span>Craete</span>
+              </button>
+
+            </Link>
+          </div>
         ) : (
           <Carousel
             opts={{
@@ -236,7 +255,21 @@ const Dashboard = () => {
 
 
         {myCards.length === 0 ? (
-          "No cards yet"
+          <div className="flex text-white font-semibold gap-2 items-center justify-center flex-col p-5">
+            <span className="text-7xl">
+              😐
+            </span>
+            <span className="text-2xl">
+              No Card yet
+            </span>
+            <Link href="/create/card" className="flex items-center justify-center">
+              <button className="inline-flex items-center p-3 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+                <span>Craete</span>
+              </button>
+
+            </Link>
+          </div>
         ) : (
           <Carousel
             opts={{
@@ -257,10 +290,10 @@ const Dashboard = () => {
 
               {myCards.map((card) => (
                 <CarouselItem
-                  key={card._id}
+                  key={event._id}
                   className="basis-[62%] sm:basis-[22%] md:basis-[22%] lg:basis-[22%]"
                 >
-                  <Card key={card._id} data={card} />
+                  <Card key={card._id} onDelete={handleRemoveCard} data={card} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -273,7 +306,7 @@ const Dashboard = () => {
         <Link href={"/"} className="flex gap-3 items-center justify-center">
           <Image
             src={"/momento.svg"}
-            alt="Momento Logo"
+          alt="Momento Logo"
             height={500}
             width={500}
             className="h-6 w-auto cursor-pointer"
