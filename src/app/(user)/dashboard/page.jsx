@@ -86,11 +86,9 @@ const Dashboard = () => {
           />
         </Link>
 
-
-
         <div className="flex gap-2 md:gap-5">
           <Dialog className="">
-            <DialogTrigger asChild>
+            <DialogTrigger>
               <Button label="Create" variant="light" />
             </DialogTrigger>
             <DialogContent className="text-white bg-black cursor-pointer">
