@@ -66,10 +66,10 @@ const Dashboard = () => {
     setMyCards((prev) => prev.filter((card) => card.slug !== slug));
   };
   return (
-    <div className="bg-black-1">
+    <div>
       <video
-        className="fixed top-0 left-0 w-full h-full object-top object-cover -z-1"
-        src="/web.mp4"
+        className="fixed top-0 left-0 w-full h-full object-cover -z-10 pointer-events-none"
+        src="https://res.cloudinary.com/dxoxlurnt/video/upload/v1766266085/web_utfj0o.mp4"
         autoPlay
         loop
         muted
