@@ -33,6 +33,7 @@ export async function POST(req) {
         avatar: user.imageUrl,
       },
       background: body.background,
+      font: body.font,
     });
 
     return NextResponse.json(card, { status: 201 });

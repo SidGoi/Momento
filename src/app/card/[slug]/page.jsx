@@ -1,5 +1,3 @@
-import { connectDB } from "lib/db";
-import Card from "models/Card";
 import Image from "next/image";
 import React from "react";
 
@@ -60,7 +58,7 @@ export default async function CardPage({ params }) {
               alt={data.title}
               height={500}
               width={500}
-              className="cursor-pointer w-80 h-80 object-cover rounded-xl mb-4"
+              className="curp w-80 h-80 object-cover rounded-xl mb-4"
             />
             <div className='flex flex-col items-center justify-center gap-1'>
               <h1
@@ -68,6 +66,7 @@ export default async function CardPage({ params }) {
                 className="text-4xl font-bold mb-2">{data.title}</h1>
               <p className="font-medium">{data.description}</p>
             </div>
+
 
           </div>
         
@@ -78,23 +77,5 @@ export default async function CardPage({ params }) {
   } catch (error) {
     console.error(error);
     return <div>Something went wrong</div>;
-  }
-}
-
-export async function DELETE(req, { params }) {
-  await connectDB();
-  const { slug } = await params;
-
-  try {
-    const deletedCard = await Card.findOneAndDelete({ slug });
-
-    if (!deletedCard) {
-      return NextResponse.json({ error: "Card not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({ message: "Card deleted successfully" }, { status: 200 });
-  } catch (error) {
-    console.error("Delete Error:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
