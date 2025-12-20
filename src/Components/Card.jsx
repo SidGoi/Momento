@@ -16,7 +16,7 @@ const Card = ({ data, onDelete }) => {
 
   const handleCopy = async (e) => {
     e.preventDefault(); // Prevent link navigation
-    const url = `/api/cards/${slug}`;
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/card/${slug}`;
     try {
       await navigator.clipboard.writeText(url);
       toast.success("URL copied to clipboard!");
@@ -26,7 +26,7 @@ const Card = ({ data, onDelete }) => {
   };
 
   const handleDelete = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     if (!confirm("Are you sure you want to delete this card?")) return;
 
     const toastId = toast.loading("Deleting card...");
@@ -49,7 +49,7 @@ const Card = ({ data, onDelete }) => {
 
   return (
     <div className="relative p-3 min-w-60 max-w-60 rounded-2xl overflow-hidden cursor-pointer group">
-    
+
       <Menubar className={'absolute top-5 right-5 z-20 cursor-pointer border-none rounded-full h-8 w-8  flex items-center justify-center hover:bg-gray-500/50 active:bg-gray-500/100 transition duration-300'}>
         <MenubarMenu>
           <MenubarTrigger className={'cursor-pointer'}>

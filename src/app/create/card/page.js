@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/Components/ui/select";
+import { Spinner } from "@/Components/ui/spinner";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -120,11 +121,11 @@ export default function CreateCard() {
         ) : (
           <div className="w-full h-full bg-neutral-900" />
         )}
-        <div className="absolute inset-0 bg-black/20" /> {/* Subtle overlay for legibility */}
+        <div className="absolute inset-0 bg-black/20" />{" "}
+        {/* Subtle overlay for legibility */}
       </div>
 
       <div className="z-10 w-full max-w-6xl flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20">
-        
         {/* LEFT COLUMN: PREVIEW */}
         <div className="flex flex-col  items-center gap-8 lg:sticky lg:top-10">
           <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md py-2 px-4 rounded-full border border-white/20">
@@ -154,7 +155,13 @@ export default function CreateCard() {
                 htmlFor="card-upload"
                 className="absolute bottom-4 right-4 flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full cursor-pointer shadow-lg hover:scale-105 active:scale-95 transition-all font-semibold text-sm"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  viewBox="0 -960 960 960"
+                  width="20"
+                  fill="currentColor"
+                >
                   <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h295q20 0 30.5 16.5T529-788q-5 17-7 34t-2 34q0 100 70 170t170 70q8 0 17-.5t17-2.5q18-2 32 9t14 28v246q0 33-23.5 56.5T760-120H200Zm80-160h400q12 0 18-11t-2-21L586-459q-6-8-16-8t-16 8L450-320l-74-99q-6-8-16-8t-16 8l-80 107q-8 10-2 21t18 11Z" />
                 </svg>
                 Change Photo
@@ -197,40 +204,56 @@ export default function CreateCard() {
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-widest opacity-60">Typography</label>
-            <Select value={font} onValueChange={(value) => setFont(value)}>
-              <SelectTrigger 
-                className="w-full h-12 bg-white/10 border-white/20 rounded-xl backdrop-blur-md"
+          <div className="">
+            <label className="text-xs font-bold">
+              Typography
+            </label>
+            <Select  value={font} onValueChange={(value) => setFont(value)}>
+              <SelectTrigger
+                className="w-full h-12 bg-white/10 border-white/20 rounded-xl backdrop-blur-md mt-3"
                 style={{ fontFamily: font }}
               >
                 <SelectValue placeholder="Choose a Font" />
               </SelectTrigger>
               <SelectContent className="bg-neutral-900 border-white/10 text-white">
-                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono"].map((f) => (
-                  <SelectItem key={f} value={f} style={{ fontFamily: f }}>
-                    {f}
-                  </SelectItem>
-                ))}
+                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono"].map(
+                  (f) => (
+                    <SelectItem key={f} value={f} style={{ fontFamily: f }}>
+                      {f}
+                    </SelectItem>
+                  )
+                )}
               </SelectContent>
             </Select>
           </div>
 
-          <div className="space-y-3">
-            <label className="text-xs font-bold uppercase tracking-widest opacity-60">Theme Background</label>
-            <div className="flex flex-wrap gap-3 justify-start">
+          <div className="">
+            <label className="text-xs font-bold">
+              Theme Background
+            </label>
+            <div className="flex flex-wrap mt-3 gap-3 justify-start">
               {backgrounds.map((bg) => (
                 <button
                   key={bg._id}
                   onClick={() => setSelectedBg(bg)}
                   className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all hover:scale-110 ${
-                    selectedBg?._id === bg._id ? "border-white scale-110 shadow-lg" : "border-transparent"
+                    selectedBg?._id === bg._id
+                      ? "border-white scale-110 shadow-lg"
+                      : "border-transparent"
                   }`}
                 >
                   {bg.url.endsWith(".mp4") ? (
-                    <video src={bg.url} muted className="h-full w-full object-cover" />
+                    <video
+                      src={bg.url}
+                      muted
+                      className="h-full w-full object-cover"
+                    />
                   ) : (
-                    <img src={bg.url} className="h-full w-full object-cover" alt={bg.name} />
+                    <img
+                      src={bg.url}
+                      className="h-full w-full object-cover"
+                      alt={bg.name}
+                    />
                   )}
                 </button>
               ))}
@@ -240,12 +263,18 @@ export default function CreateCard() {
           <button
             onClick={createCard}
             disabled={loading}
-            className="w-full py-4 mt-2 bg-white text-black font-black text-lg rounded-xl hover:bg-neutral-200 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
+            className="w-full cursor-pointer py-4 mt-2 bg-white text-black font-black text-lg rounded-xl hover:bg-neutral-200 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
           >
-            {loading ? "PREPARING MAGIC..." : "CREATE CARD"}
+            {loading ? (
+              <span>
+                <Spinner />
+                Creating Card
+              </span>
+            ) : (
+              "Create Card"
+            )}
           </button>
         </div>
-
       </div>
     </main>
   );
