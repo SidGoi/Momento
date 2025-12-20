@@ -19,19 +19,19 @@ const Footer = () => {
             <div className="flex gap-6">
               <Link
                 href="https://wa.me/yournumber"
-                className="p-3 rounded-full bg-black/70 hover:bg-green-500/20 hover:text-green-500 transition-all duration-300 border border-white/10"
+                className="p-3 rounded-full bg-green-500/20 text-green-500 transition-all duration-300 border border-white/10"
               >
                 <MessageCircle size={24} />
               </Link>
               <Link
                 href="https://instagram.com/yourprofile"
-                className="p-3 rounded-full bg-black/70 hover:bg-pink-500/20 hover:text-pink-500 transition-all duration-300 border border-white/10"
+                className="p-3 rounded-full bg-pink-500/20 text-pink-500 transition-all duration-300 border border-white/10"
               >
                 <Instagram size={24} />
               </Link>
               <Link
                 href="https://youtube.com/yourchannel"
-                className="p-3 rounded-full bg-black/70 hover:bg-red-500/20 hover:text-red-500 transition-all duration-300 border border-white/10"
+                className="p-3 rounded-full bg-red-500/20 text-red-500 transition-all duration-300 border border-white/10"
               >
                 <Youtube size={24} />
               </Link>
