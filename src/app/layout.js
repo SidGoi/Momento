@@ -39,7 +39,6 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        {/* Default font can be Poppins */}
         <body className={poppins.className}>{children}</body>
       </html>
     </ClerkProvider>

@@ -48,21 +48,6 @@ export default function CreateCard() {
     return data.secure_url;
   };
 
-  // Map font name to className
-  const getFontClass = (name) => {
-    switch (name) {
-      case "Pacifico":
-        return pacifico.className;
-      case "Patua One":
-        return patuaOne.className;
-      case "Bebas Neue":
-        return bebasNeue.className;
-      case "Space Mono":
-        return spaceMono.className;
-      default:
-        return poppins.className;
-    }
-  };
 
   const createCard = async () => {
     if (!title || !description || !image || !selectedBg) {
@@ -129,7 +114,7 @@ export default function CreateCard() {
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className={`w-full p-2 rounded border ${getFontClass(font)} text-lg`}
+        className={`w-full p-2 rounded border text-lg`}
       />
 
       {/* Description Input */}
@@ -137,7 +122,7 @@ export default function CreateCard() {
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className={`w-full p-2 rounded border ${getFontClass(font)}`}
+        className={`w-full p-2 rounded border`}
         rows={4}
       />
 
