@@ -6,11 +6,15 @@ import {
   Bebas_Neue,
   Space_Mono,
   Quicksand,
+  Nabla
 } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
-
+const nabla = Nabla({
+  subsets: ["latin"],
+  variable: "--font-nabla",
+});
 // Configure fonts
 export const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800", "900"],
