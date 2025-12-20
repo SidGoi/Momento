@@ -39,40 +39,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Visual Component */}
-      <div className="py-10">
-        <CircularImageCarousel />
-      </div>
-
-      {/* Features Section (Dummy Data) */}
-      <section className="px-4 md:px-20 py-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          {
-            title: "Digital RSVP",
-            desc: "Track your guest list in real-time with beautiful, custom event pages.",
-            icon: "🎉",
-          },
-          {
-            title: "Digital Cards",
-            desc: "Send personalized greetings and invitations that look stunning on any device.",
-            icon: "✉️",
-          },
-          {
-            title: "Live Galleries",
-            desc: "Collect and share photos from your events instantly with all your guests.",
-            icon: "📸",
-          },
-        ].map((feature, i) => (
-          <div
-            key={i}
-            className="p-8 rounded-3xl bg-black/90 font-semibold cursor-pointer border border-white/10 hover:border-white/20 transition"
-          >
-            <div className="text-4xl mb-4">{feature.icon}</div>
-            <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-            <p className="text-gray-400">{feature.desc}</p>
-          </div>
-        ))}
-      </section>
 
       <Footer />
     </div>

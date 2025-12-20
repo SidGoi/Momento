@@ -101,14 +101,14 @@ const Navbar = () => {
                             className="text-black-1 font-semibold"
                             onClick={() => setOpen(false)}
                         >
-                            Create Event 🎉
+                            Create Event
                         </Link>
                         <Link
                             href="/dashboard"
                             className="text-black-1 font-semibold"
                             onClick={() => setOpen(false)}
                         >
-                            Create Card ✉️
+                            Create Card
                         </Link>
                         <Link
                             href="/dashboard"
