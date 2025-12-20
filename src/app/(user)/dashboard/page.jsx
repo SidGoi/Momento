@@ -193,21 +193,14 @@ const Dashboard = () => {
 
       <div className="px-4 md:px-14 py-5">
         {events.length === 0 ? (
-          <div className="flex text-white font-semibold gap-2 items-center justify-center flex-col p-5">
-            <span className="text-7xl">
-              😐
-            </span>
-            <span className="text-2xl">
-              No Event yet
-            </span>
-            <Link href="/create/event" className="flex items-center justify-center">
-              <button className="inline-flex items-center p-3 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
-                <span>Craete</span>
-              </button>
+          <Link href="/create/card" className="">
 
-            </Link>
-          </div>
+            <div className="cursor-pointer hover:bg-gray-900 transition duration-200 hover:border-purple-400 flex text-white font-semibold items-center justify-center h-50 w-50 border-3 border-dashed">  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+
+              Create New
+            </div>
+          </Link>
+
         ) : (
           <Carousel
             opts={{
@@ -255,7 +248,7 @@ const Dashboard = () => {
 
 
         {myCards.length === 0 ? (
-          <div className="flex text-white font-semibold gap-2 items-center justify-center flex-col p-5">
+          <div className="flex text-white font-semibold gap-4 items-center justify-center flex-col p-5">
             <span className="text-7xl">
               😐
             </span>
@@ -306,7 +299,7 @@ const Dashboard = () => {
         <Link href={"/"} className="flex gap-3 items-center justify-center">
           <Image
             src={"/momento.svg"}
-          alt="Momento Logo"
+            alt="Momento Logo"
             height={500}
             width={500}
             className="h-6 w-auto cursor-pointer"
