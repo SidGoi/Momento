@@ -66,7 +66,7 @@ const Dashboard = () => {
     setMyCards((prev) => prev.filter((card) => card.slug !== slug));
   };
   return (
-    <div>
+    <div className="bg-black-1">
       <video
         className="fixed top-0 left-0 w-full h-full object-top object-cover -z-1"
         src="/web.mp4"
