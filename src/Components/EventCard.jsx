@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "./ui/menubar";
+import { toast } from "sonner";
 
-const EventCard = ({ data }) => {
-  const { title, coverImage, createdAt, host, date } = data;
+const EventCard = ({ data, onDelete }) => {
+  const { title, coverImage, host, date } = data;
 
   const formattedDate = new Date(date).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -11,9 +13,67 @@ const EventCard = ({ data }) => {
     year: "numeric",
   });
 
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this event?")) return;
+
+    const toastId = toast.loading("Deleting event...");
+
+    try {
+      const response = await fetch(`/api/events/${data.slug}`, {
+        method: "DELETE",
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to delete");
+      }
+      if (onDelete) {
+        onDelete(data.slug);
+      }
+      toast.success("Event deleted", { id: toastId });
+
+    } catch (error) {
+      toast.error(error.message, { id: toastId });
+    }
+  };
+
+  const handleCopy = async () => {
+    const url = `${window.location.origin}/event/${data.slug}`;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("URL copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
   return (
-    <Link href={`/event/${data.slug}`}>
-      <div className="flex flex-col min-w-70 max-w-70 gap-3 cursor-pointer p-4  hover:bg-gray-800/80 text-white w-fit transition duration-200">
+    <div className="relative flex flex-col min-w-70 max-w-70 gap-3 cursor-pointer p-4  hover:bg-gray-800/80 text-white w-fit transition duration-200 cursor-pointer">
+
+      <Menubar className={' absolute top-6 right-6 z-20 cursor-pointer border-none rounded-full h-8 w-8 bg-gray-700/90 felx items-center justify-center hover:bg-gray-700 active:hover:bg-gray-800 transition duration-300'}>
+        <MenubarMenu>
+          <MenubarTrigger className={'cursor-pointer'}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" /></svg>
+          </MenubarTrigger>
+          <MenubarContent className={'bg-gray-900 border-none font-semibold text-white'}>
+            <Link href={`/event/${data.slug}`}>
+              <MenubarItem className={'cursor-pointer transition duration-200 hover:bg-gray-800/90'} >
+                Open
+              </MenubarItem>
+            </Link>
+            <MenubarItem className={'cursor-pointer transition duration-200 hover:bg-gray-800/90'} onClick={handleCopy}>
+              Copy URL to Share
+            </MenubarItem>
+            <MenubarItem onClick={handleDelete} className={'cursor-pointer transition duration-200 hover:bg-gray-800/90 text-red-500'}>
+              Delete
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+
+
+      </Menubar>
+      <Link href={`/event/${data.slug}`}>
+
         <div className="relative">
 
           <Image
@@ -44,8 +104,10 @@ const EventCard = ({ data }) => {
             </span>
           </p>
         </div>
-      </div>
-    </Link>
+
+
+      </Link>
+    </div>
 
   );
 };

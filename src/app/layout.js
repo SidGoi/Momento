@@ -2,6 +2,7 @@
 import { Poppins, Pacifico, Patua_One, Bebas_Neue, Space_Mono, Quicksand } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 // Configure fonts
 export const poppins = Poppins({
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={quicksand.className}>{children}</body>
+        <Toaster position="bottom-right" richColors theme="dark" />
       </html>
     </ClerkProvider>
   );

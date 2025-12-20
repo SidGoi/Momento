@@ -2,6 +2,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import MomentoLoader from "@/Components/MomentoLoader/MomentoLoader";
 
 export default function EventPage() {
   const params = useParams();
@@ -29,7 +30,7 @@ export default function EventPage() {
     fetchEvent();
   }, [slug]);
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (loading) return <MomentoLoader />;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
   if (!event) return null;
 

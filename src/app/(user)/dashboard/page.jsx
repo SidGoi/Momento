@@ -46,6 +46,8 @@ const Dashboard = () => {
 
     fetchDashboardData();
   }, [isLoaded, user]);
+
+
   if (!isLoaded || loading) {
     return (
       <div className="h-screen w-screen flex items-center justify-center">
@@ -53,6 +55,11 @@ const Dashboard = () => {
       </div>
     );
   }
+  // Inside Dashboard.js
+  const handleRemoveEvent = (slug) => {
+    // This filters out the deleted event and updates the UI immediately
+    setEvents((prevEvents) => prevEvents.filter((event) => event.slug !== slug));
+  };
   return (
     <div>
       <video
@@ -190,16 +197,19 @@ const Dashboard = () => {
             }}
             className="relative"
           >
-            {/* Right fade indicator */}
-            <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
+            {events.length > 3
+              &&
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
 
+            }
+            <div className="md:hidden pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
             <CarouselContent className="">
               {events.map((event) => (
                 <CarouselItem
                   key={event._id}
                   className="basis-[70%] sm:basis-[60%] md:basis-[40%] lg:basis-[25%]"
                 >
-                  <EventCard data={event} />
+                  <EventCard data={event} onDelete={handleRemoveEvent} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -215,9 +225,12 @@ const Dashboard = () => {
             <p className="text-lg md:text-md">All the cards you've created</p>
           </div>
           <Link href="/create/card" className="flex items-center justify-center">
-            <button className="p-2 md:px-6 md:py-3 bg-gray-700/50 cursor-pointer hover:bg-gray-800/80 transition duration-300 rounded-full text-white flex items-center justify-center gap-1">
-              <span className="hidden md:flex">Craete Card</span> <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+            <button className="inline-flex items-center p-3 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+
+              <span className="hidden md:flex">New card</span>
             </button>
+
           </Link>
         </div>
 
@@ -232,13 +245,20 @@ const Dashboard = () => {
             }}
             className="relative"
           >
-            <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
+
+            {myCards.length > 3
+              &&
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
+            }
+
+            <div className="md:hidden pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
+
             <CarouselContent className="">
 
               {myCards.map((card) => (
                 <CarouselItem
-                  key={event._id}
-                  className="basis-[60%] sm:basis-[20%] md:basis-[20%] lg:basis-[20%]"
+                  key={card._id}
+                  className="basis-[62%] sm:basis-[22%] md:basis-[22%] lg:basis-[22%]"
                 >
                   <Card key={card._id} data={card} />
                 </CarouselItem>
