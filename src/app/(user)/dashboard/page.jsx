@@ -16,40 +16,37 @@ const Dashboard = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!isLoaded || !user) return;
+useEffect(() => {
+  if (!isLoaded || !user) return;
 
-    const fetchEvents = async () => {
-      try {
-        const res = await fetch(`/api/events?userId=${user.id}`);
-        const data = await res.json();
-        setEvents(data);
-      } catch (err) {
-        console.error("Fetch events error:", err);
-      } finally {
-        setLoading(false);
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+
+      const [eventsRes, cardsRes] = await Promise.all([
+        fetch(`/api/events?userId=${user.id}`),
+        fetch(`/api/cards?userId=${user.id}`)
+      ]);
+
+      if (!eventsRes.ok || !cardsRes.ok) {
+        throw new Error("Failed to fetch dashboard data");
       }
-    };
 
-    fetchEvents();
-  }, [isLoaded, user]);
+      const eventsData = await eventsRes.json();
+      const cardsData = await cardsRes.json();
 
-  useEffect(() => {
-    if (!isLoaded || !user) return; // wait until user is loaded
+      setEvents(eventsData);
+      setMyCards(cardsData);
+    } catch (error) {
+      console.error("Dashboard fetch error:", error);
+    } finally {
+      setLoading(false); // ✅ ONLY here
+    }
+  };
 
-    const fetchCards = async () => {
-      try {
-        const res = await fetch(`/api/cards?userId=${user.id}`);
-        if (!res.ok) throw new Error("Failed to fetch cards");
-        const data = await res.json();
-        setMyCards(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  fetchDashboardData();
+}, [isLoaded, user]);
 
-    fetchCards();
-  }, [isLoaded, user]);
 
   if (!isLoaded) return <div><MomentoLoader /></div>; // show loading until user is ready
 
