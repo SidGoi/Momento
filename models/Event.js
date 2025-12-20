@@ -30,7 +30,24 @@ const EventSchema = new mongoose.Schema(
 
     background: {
       type: Object,
-      default: { primary: "#ffffff", secondary: "#f2f2f2" },
+      default: {
+        name: {
+          type: String,
+          required: true,
+          unique: true,
+          trim: true,
+        },
+        theme: {
+          type: String,
+          enum: ["light", "dark"],
+          required: true,
+        },
+
+        url: {
+          type: String,
+          required: true,
+        },
+      },
     },
 
     rsvp: {

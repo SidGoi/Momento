@@ -1,1 +1,12 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline{
+    --color-black-1: #111;
+    --color-black-2: #222;
+    --color-black-3: #333;
+}
+
+.font-primary{
+    font-family: Pacifico, cursive;
+}

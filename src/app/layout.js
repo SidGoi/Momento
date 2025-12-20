@@ -1,5 +1,5 @@
 // src/app/layout.js or RootLayout.js
-import { Poppins, Pacifico, Patua_One, Bebas_Neue, Space_Mono } from "next/font/google";
+import { Poppins, Pacifico, Patua_One, Bebas_Neue, Space_Mono, Quicksand } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -8,6 +8,11 @@ export const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
 });
+export const quicksand = Quicksand({
+  weight: ["400", "500", "600", "700",],
+  subsets: ["latin"],
+});
+
 
 export const pacifico = Pacifico({
   weight: "400",
@@ -39,7 +44,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={poppins.className}>{children}</body>
+        <body className={quicksand.className}>{children}</body>
       </html>
     </ClerkProvider>
   );

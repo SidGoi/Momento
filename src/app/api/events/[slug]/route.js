@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   await connectDB();
 
-  const { slug } = params;
+  const { slug } = await params;
 
   try {
     const event = await Event.findOne({ slug });

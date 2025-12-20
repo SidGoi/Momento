@@ -16,7 +16,18 @@ export default function CreateEvent() {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [backgrounds, setBackgrounds] = useState([]);
+  const [selectedBg, setSelectedBg] = useState(null);
   const [sections, setSections] = useState([]);
+
+  useEffect(() => {
+    const fetchBackgrounds = async () => {
+      const res = await fetch("/api/backgrounds");
+      const data = await res.json();
+      setBackgrounds(data);
+    };
+    fetchBackgrounds();
+  }, []);
 
   useEffect(() => {
     if (!coverImage) return setPreview(null);
@@ -74,6 +85,7 @@ export default function CreateEvent() {
           rsvp: true,
           sections,
           userId: user.id,
+          background: selectedBg,
         }),
       });
 
@@ -152,6 +164,47 @@ export default function CreateEvent() {
       <button onClick={addSection} className="bg-gray-200 px-3 py-1 mt-2">
         Add Section
       </button>
+
+      <div>
+        <h3 className="font-bold mb-2">Select Theme Background</h3>
+        <div className="grid grid-cols-3 gap-4">
+          {backgrounds.map((bg) => (
+            <div
+              key={bg._id}
+              onClick={() => setSelectedBg(bg)}
+              className={`cursor-pointer rounded-lg overflow-hidden border-2 ${
+                selectedBg?._id === bg._id
+                  ? "border-black"
+                  : "border-transparent"
+              }`}
+            >
+              {bg.url.endsWith(".mp4") ? (
+                <video
+                  src={bg.url}
+                  muted
+                  loop
+                  autoPlay
+                  className="h-32 w-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={bg.url}
+                  width={200}
+                  height={120}
+                  alt={bg.name}
+                  className="h-32 w-full object-cover"
+                />
+              )}
+              <div className="p-2 text-sm">
+                <p className="font-medium">{bg.name}</p>
+                <p className="text-xs text-gray-500">
+                  {bg.theme.toUpperCase()}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <button
         onClick={createEvent}

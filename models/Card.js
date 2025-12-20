@@ -24,8 +24,7 @@ const CardSchema = new mongoose.Schema(
 
     font: {
       type: String,
-      default: "Playfair_Display",
-    },
+    },  
 
     background: {
       name: {
