@@ -408,7 +408,6 @@ export default function CreateEvent() {
                     className="bg-transparent border-none p-0 focus-visible:ring-0 text-sm resize-none min-h-[40px] placeholder:text-white/30"
                   />
                   <Button 
-                  
                     variant="destructive"
                     size="icon"
                     className="h-6 w-6 rounded-full absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity scale-75"
