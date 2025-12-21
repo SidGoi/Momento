@@ -16,6 +16,7 @@ import Image from "next/image";
 import MomentoLoader from "@/Components/MomentoLoader/MomentoLoader";
 import { Globe, Search, Sparkles } from "lucide-react";
 import { isToday } from "date-fns";
+import PublicEventCard from "@/Components/PublicEventCard";
 
 const ExplorePublicEvents = () => {
   const { user, isLoaded } = useUser();
@@ -164,7 +165,7 @@ const ExplorePublicEvents = () => {
                   </div>
                 )}
                 <div className="transform transition-all duration-500 group-hover:-translate-y-2 group-hover:rotate-1">
-                  <EventCard data={event} isExploreView={true} />
+                  <PublicEventCard data={event} isExploreView={true} />
                 </div>
               </div>
             ))}
@@ -172,7 +173,7 @@ const ExplorePublicEvents = () => {
         )}
       </main>
 
-      <footer className="border-t border-white/10 p-12 bg-black/40 backdrop-blur-xl flex flex-col md:flex-row gap-6 items-center justify-between">
+      <footer className="border-t mt-10 border-white/10 p-12 bg-black/40 backdrop-blur-xl flex flex-col md:flex-row gap-6 items-center justify-between">
         <Link href={"/"} className="flex gap-4 items-center">
           <Image
             src={"/momento.svg"}
