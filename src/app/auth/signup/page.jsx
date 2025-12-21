@@ -4,7 +4,8 @@ import React from "react";
 const SignUpPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <SignUp routing="path" path="/auth/signup" signInUrl="/auth/signin" />
+      <SignUp routing="path" path="/auth/signup" signInUrl="/auth/signin" forceRedirectUrl="/dashboard"
+        fallbackRedirectUrl="/dashboard" />  />
     </div>
   );
 };

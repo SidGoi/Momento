@@ -64,7 +64,7 @@ const Navbar = () => {
                         <Link
                             href="/auth/signup"
 
-                            className="bg-gray-100 border-1 border-gray-400 text-black px-6 py-4 rounded-xl text-center font-bold text-xl"
+                            className="bg-gray-100 border-1 border-gray-400 text-black px-4 py-2 rounded-xl text-center font-bold text-lg"
                             onClick={closeMenu}
                         >
                             SignUp

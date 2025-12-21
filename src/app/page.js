@@ -1,3 +1,5 @@
+"use client";
+
 import CircularImageCarousel from "@/Components/CircularImageCarousel";
 import CTAComponent from "@/Components/CTAComponent";
 import Footer from "@/Components/Footer";
@@ -8,11 +10,22 @@ import {
   ScrollVelocityContainer,
   ScrollVelocityRow,
 } from "@/Components/ui/scroll-based-velocity";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import Link from "next/link";
-import React from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const HomePage = () => {
+  const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      router.replace("/dashboard"); // 👈 redirect here
+    }
+  }, [isLoaded, isSignedIn, router]);
+
+  if (!isLoaded) return null; // prevent flicker
+
   const eventData = [
     { title: "Clothing Swap", image: "/card1.jpg" },
     { title: "Disco Night", image: "/card2.png" },
@@ -25,18 +38,19 @@ const HomePage = () => {
     { title: "Art Gallery Opening", image: "/card9.jpg" },
     { title: "Coffee & Coding", image: "/card10.jpg" },
   ];
+
   return (
-    <div className="min-h-screen  text-white overflow-x-hidden">
+    <div className="min-h-screen text-white overflow-x-hidden">
       <Navbar />
       <PartfulHero />
       <ScrollingCards cards={eventData} />
 
-      <ScrollVelocityContainer>
-        baseVelocity={5}
+      <ScrollVelocityContainer baseVelocity={5}>
         <ScrollVelocityRow className="mb-3 text-2xl md:text-5xl font-bold text-black-1">
           Remember your mortality to unlock your vitality — The clock is
           ticking, make every second a masterpiece.
         </ScrollVelocityRow>
+
         <ScrollVelocityRow
           className="text-2xl md:text-5xl font-bold text-black-1"
           baseVelocity={5}
@@ -46,6 +60,7 @@ const HomePage = () => {
           arguing what a good man should be. Be one.
         </ScrollVelocityRow>
       </ScrollVelocityContainer>
+
       <CTAComponent
         imageSrc={"/CTA1.jpg"}
         href={"/create/card"}
@@ -59,7 +74,7 @@ const HomePage = () => {
         reverse
         btn="Try it for free"
         title="Event pages that match your aesthetic"
-        description="Make your invites unmistakably yours with easy-to-use designs, custom animations, and a vibe that’s all about  you."
+        description="Make your invites unmistakably yours with easy-to-use designs, custom animations, and a vibe that’s all about you."
       />
 
       <Footer />
