@@ -79,7 +79,7 @@ export default function AddBackground() {
     <main className="relative min-h-screen w-full bg-[#0a0a0a] text-white flex flex-col items-center justify-center p-6 lg:p-12">
       {/* Back Button */}
       <Link 
-        href="/admin/backgrounds" 
+        href="/admin/" 
         className="absolute top-8 left-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
       >
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor">
