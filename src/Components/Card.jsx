@@ -67,35 +67,38 @@ const Card = ({ data, onDelete }) => {
     <div className="relative p-3 min-w-60 max-w-60 rounded-2xl overflow-hidden cursor-pointer group">
 
       {/* Menu Overlay */}
-      <Menubar className="absolute top-5 right-5 z-20 cursor-pointer border-none rounded-full h-8 w-8 flex items-center justify-center bg-black/20 hover:bg-black/50 transition duration-300">
-        <MenubarMenu>
-          <MenubarTrigger className="cursor-pointer focus:bg-transparent">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-              <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
-            </svg>
-          </MenubarTrigger>
-          <MenubarContent className="bg-gray-900 border border-white/10 font-semibold text-white min-w-40">
-            <Link href={`/card/${slug}`}>
-              <MenubarItem className="cursor-pointer focus:bg-white/10">Open</MenubarItem>
-            </Link>
+    <Menubar className="absolute top-5 right-5 z-20 cursor-pointer border-none rounded-full h-8 w-8 flex items-center justify-center bg-black/20 hover:bg-black/50 transition duration-300 shadow-none focus-within:bg-black/50">
+  <MenubarMenu>
+    {/* Added data-[state=open]:bg-transparent and focus:bg-transparent */}
+    <MenubarTrigger className="cursor-pointer bg-transparent border-none p-0 focus:bg-transparent active:bg-transparent data-[state=open]:bg-transparent outline-none shadow-none">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+        <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
+      </svg>
+    </MenubarTrigger>
+    
+    <MenubarContent className="bg-gray-900/90 backdrop-blur-md border border-white/10 font-semibold text-white min-w-40 shadow-2xl">
+      <Link href={`/card/${slug}`}>
+        <MenubarItem className="cursor-pointer focus:bg-white/10 focus:text-white">Open</MenubarItem>
+      </Link>
 
-            <MenubarItem className="cursor-pointer focus:bg-white/10" onClick={handleShare}>
-              Share Card
-            </MenubarItem>
-            <a href={`/edit/card/${slug}`}>
-              <MenubarItem className="cursor-pointer focus:bg-white/10" >
-                Edit Card
-              </MenubarItem>
-            </a>
-            <div className="h-[1px] bg-white/10 my-1" />
+      <MenubarItem className="cursor-pointer focus:bg-white/10 focus:text-white" onClick={handleShare}>
+        Share Card
+      </MenubarItem>
+      
+      <a href={`/edit/card/${slug}`}>
+        <MenubarItem className="cursor-pointer focus:bg-white/10 focus:text-white">
+          Edit Card
+        </MenubarItem>
+      </a>
+      
+      <div className="h-[1px] bg-white/10 my-1" />
 
-            <MenubarItem onClick={handleDelete} className="cursor-pointer text-red-500 focus:bg-red-500/10 focus:text-red-500">
-              Delete
-            </MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-
-      </Menubar>
+      <MenubarItem onClick={handleDelete} className="cursor-pointer text-red-500 focus:bg-red-500/10 focus:text-red-500">
+        Delete
+      </MenubarItem>
+    </MenubarContent>
+  </MenubarMenu>
+</Menubar>
       <div className="absolute top-3 left-3 z-30 scale-75">
         <ShareButton />
       </div>

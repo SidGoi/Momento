@@ -1,274 +1,170 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+import { useParams, useRouter } from "next/navigation";
+import { useUser, SignInButton } from "@clerk/nextjs";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Textarea } from "@/Components/ui/textarea";
+import MomentoLoader from "@/Components/MomentoLoader/MomentoLoader";
+import { format } from "date-fns";
+import { CalendarDays, MapPin, MessageSquare, Lock } from "lucide-react";
 
-export default function CreateEvent() {
+export default function EventViewPage() {
+  const { slug } = useParams();
   const router = useRouter();
-  const { user } = useUser();
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
-  const [coverImage, setCoverImage] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [time, setTime] = useState("");
-  const [commentsEnabled, setCommentsEnabled] = useState(true);
-
-  const [backgrounds, setBackgrounds] = useState([]);
-  const [selectedBg, setSelectedBg] = useState(null);
-  const [sections, setSections] = useState([]);
+  const { user, isLoaded, isSignedIn } = useUser();
+  
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
-    const fetchBackgrounds = async () => {
-      try {
-        const res = await fetch("/api/backgrounds");
-        const data = await res.json();
-        if (Array.isArray(data)) {
-          setBackgrounds(data);
-        } else if (data && Array.isArray(data.backgrounds)) {
-          setBackgrounds(data.backgrounds);
-        } else {
-          console.error("API did not return an array:", data);
-          setBackgrounds([]); 
-        }
-      } catch (error) {
-        console.error("Failed to fetch backgrounds:", error);
-        setBackgrounds([]); 
-      }
-    };
-    fetchBackgrounds();
-  }, []);
-  useEffect(() => {
-    if (!coverImage) return setPreview(null);
-    const url = URL.createObjectURL(coverImage);
-    setPreview(url);
-    return () => URL.revokeObjectURL(url);
-  }, [coverImage]);
-
-  const uploadToCloudinary = async () => {
-    const formData = new FormData();
-    formData.append("file", coverImage);
-    formData.append("upload_preset", "momento");
-    formData.append("folder", "Events");
-
-    const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      { method: "POST", body: formData }
-    );
-    const data = await res.json();
-    return data.secure_url;
-  };
-
-  const addSection = () =>
-    setSections([...sections, { heading: "", description: "" }]);
-  const updateSection = (index, field, value) => {
-    const newSections = [...sections];
-    newSections[index][field] = value;
-    setSections(newSections);
-  };
-  const removeSection = (index) =>
-    setSections(sections.filter((_, i) => i !== index));
-
-  const createEvent = async () => {
-    if (
-      !title ||
-      !description ||
-      !date ||
-      !time ||
-      !location ||
-      !coverImage ||
-      !selectedBg
-    ) {
-      return alert("All fields required ❗");
-    }
-
-    try {
-      setLoading(true);
-
-      const imageUrl = await uploadToCloudinary();
-
-      const slug = title.toLowerCase().replace(/\s+/g, "-") + "-" + Date.now(); // ✅ unique slug
-
-      const res = await fetch("/api/events", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          slug,
-          userId: user.id,
-
-          title,
-          description,
-          date,
-          time,
-          location,
-          coverImage: imageUrl,
-
-          host: {
-            name: user.fullName,
-            avatar: user.imageUrl,
-            id: user.id,
-          },
-
-          font: {
-            heading: "Playfair_Display",
-            body: "Inter",
-          },
-
-          background: {
-            name: selectedBg.name,
-            theme: selectedBg.theme,
-            url: selectedBg.url,
-          },
-
-          rsvp: true,
-          sections,
-          commentsEnabled,
-        }),
+    // Fetch event data by slug
+    fetch(`/api/events/${slug}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEvent(data);
+        setLoading(false);
       });
+  }, [slug]);
 
-      if (!res.ok) throw new Error("Event creation failed");
-
-      router.push("/dashboard");
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong ❌");
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (loading || !isLoaded) return <MomentoLoader />;
+  if (!event) return <div className="text-white text-center mt-20">Event not found</div>;
 
   return (
-    <div className="p-10 max-w-xl">
-      {preview && (
-        <Image
-          src={preview}
-          width={400}
-          height={300}
-          alt="Preview"
-          className="rounded-lg mb-4"
-        />
-      )}
-      <input type="file" onChange={(e) => setCoverImage(e.target.files[0])} />
-
-      <input
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="block w-full my-2"
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="block w-full my-2"
-      />
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        className="block w-full my-2"
-      />
-      <input
-        type="time"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
-        className="block w-full my-2"
-      />
-
-      <input
-        placeholder="Location"
-        value={location}
-        onChange={(e) => setLocation(e.target.value)}
-        className="block w-full my-2"
-      />
-      <div className="flex items-center gap-2 my-3">
-        <input
-          type="checkbox"
-          checked={commentsEnabled}
-          onChange={(e) => setCommentsEnabled(e.target.checked)}
-        />
-        <span>Enable Comments</span>
+    <main className="relative min-h-screen w-full flex items-center justify-center p-4 md:p-8 lg:p-12 overflow-x-hidden">
+      {/* 🌌 Dynamic Background */}
+      <div className="fixed inset-0 -z-10">
+        {event.background?.url?.endsWith(".mp4") ? (
+          <video src={event.background.url} autoPlay loop muted className="w-full h-full object-cover" />
+        ) : (
+          <Image src={event.background?.url || "/default-bg.jpg"} fill className="object-cover" alt="bg" priority />
+        )}
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-[3px]" />
       </div>
 
-      <h3 className="mt-4 font-semibold">Sections</h3>
-      {sections.map((sec, i) => (
-        <div key={i} className="border p-2 my-2">
-          <input
-            placeholder="Heading"
-            value={sec.heading}
-            onChange={(e) => updateSection(i, "heading", e.target.value)}
-            className="block w-full my-1"
-          />
-          <textarea
-            placeholder="Description"
-            value={sec.description}
-            onChange={(e) => updateSection(i, "description", e.target.value)}
-            className="block w-full my-1"
-          />
-          <button
-            onClick={() => removeSection(i)}
-            className="text-red-500 mt-1"
-          >
-            Remove Section
-          </button>
-        </div>
-      ))}
-      <button onClick={addSection} className="bg-gray-200 px-3 py-1 mt-2">
-        Add Section
-      </button>
+      <div className="w-full max-w-6xl flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+        
+        {/* 🖼 LEFT – Event Details (Sticky) */}
+        <div className="flex flex-col items-center gap-6 lg:sticky lg:top-10 w-full lg:w-1/2">
+          <div className="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-full border border-white/20 backdrop-blur text-white">
+            <span className="text-sm opacity-70">Hosted by</span>
+            {event.host?.avatar && (
+              <Image src={event.host.avatar} width={30} height={30} className="rounded-full" alt="host" />
+            )}
+            <b className="text-sm md:text-base">{event.host?.name}</b>
+          </div>
 
-      <div>
-        <h3 className="font-bold mb-2">Select Theme Background</h3>
-        <div className="grid grid-cols-3 gap-4">
-          {backgrounds.map((bg) => (
-            <div
-              key={bg._id}
-              onClick={() => setSelectedBg(bg)}
-              className={`cursor-pointer rounded-lg overflow-hidden border-2 ${
-                selectedBg?._id === bg._id
-                  ? "border-black"
-                  : "border-transparent"
-              }`}
-            >
-              {bg.url.endsWith(".mp4") ? (
-                <video
-                  src={bg.url}
-                  muted
-                  loop
-                  autoPlay
-                  className="h-32 w-full object-cover"
-                />
-              ) : (
-                <Image
-                  src={bg.url}
-                  width={200}
-                  height={120}
-                  alt={bg.name}
-                  className="h-32 w-full object-cover"
-                />
-              )}
-              <div className="p-2 text-sm">
-                <p className="font-medium">{bg.name}</p>
-                <p className="text-xs text-gray-500">
-                  {bg.theme.toUpperCase()}
-                </p>
+          <div className="relative w-full max-w-[450px]">
+            <Image
+              src={event.coverImage}
+              width={500}
+              height={500}
+              alt="event cover"
+              className="rounded-[2.5rem] border-4 border-white/20 shadow-2xl object-cover aspect-square w-full"
+            />
+          </div>
+
+          <div className="w-full space-y-4 text-white text-center lg:text-left max-w-[500px]">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight" style={{ fontFamily: event.font?.heading }}>
+              {event.title}
+            </h1>
+            <p className="text-lg md:text-xl opacity-80 leading-relaxed font-light">
+              {event.description}
+            </p>
+            
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-4">
+              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10">
+                <CalendarDays className="w-5 h-5 text-purple-400" />
+                <span className="text-sm font-medium">
+                  {format(new Date(event.date), "PPP")} @ {event.time}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl border border-white/10">
+                <MapPin className="w-5 h-5 text-purple-400" />
+                <span className="text-sm font-medium">{event.location}</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* 💬 RIGHT – Interactive Panel (RSVP & Comments) */}
+        <div className="w-full lg:w-[450px] space-y-6">
+          
+          {/* RSVP Card */}
+          <div className="bg-black/30 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 shadow-2xl text-white">
+            <h3 className="text-xl font-bold mb-4">Are you coming?</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <Button className="bg-white text-black hover:bg-neutral-200 rounded-2xl h-14 font-bold text-lg">
+                Going
+              </Button>
+              <Button variant="outline" className="border-white/20 hover:bg-white/10 rounded-2xl h-14 font-bold text-lg text-white">
+                Maybe
+              </Button>
+            </div>
+          </div>
+
+          {/* Additional Sections */}
+          {event.sections?.map((sec, i) => (
+            <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 text-white">
+              <h4 className="font-bold text-purple-400 uppercase tracking-widest text-xs mb-2">{sec.heading}</h4>
+              <p className="opacity-80 text-sm leading-relaxed">{sec.description}</p>
+            </div>
           ))}
+
+          {/* Comments Section */}
+          {event.commentsEnabled && (
+            <div className="bg-black/30 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-6 shadow-2xl text-white">
+              <div className="flex items-center gap-2 mb-6">
+                <MessageSquare className="w-5 h-5 opacity-60" />
+                <h3 className="font-bold uppercase tracking-widest text-xs opacity-60">Guestbook</h3>
+              </div>
+
+              <div className="relative">
+                {/* Blur Overlay for Signed Out Users */}
+                {!isSignedIn && (
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 text-center p-4">
+                    <Lock className="w-8 h-8 mb-2 opacity-50" />
+                    <p className="text-sm font-bold mb-3">Sign in to leave a message</p>
+                    <SignInButton mode="modal">
+                      <Button size="sm" className="bg-white text-black rounded-full font-bold">Sign In</Button>
+                    </SignInButton>
+                  </div>
+                )}
+
+                {/* Comment Input (Hidden if signed out) */}
+                {isSignedIn && (
+                  <div className="space-y-3 mb-6">
+                    <Textarea 
+                      placeholder="Write a sweet note..."
+                      className="bg-white/5 border-white/10 rounded-2xl focus:bg-white/10 transition-all resize-none min-h-[100px]"
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                    />
+                    <Button className="w-full bg-purple-600 hover:bg-purple-500 rounded-xl font-bold">
+                      Post Message
+                    </Button>
+                  </div>
+                )}
+
+                {/* Dummy/Actual Comments List */}
+                <div className={`space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar ${!isSignedIn ? 'pointer-events-none select-none' : ''}`}>
+                  {/* Map through comments here */}
+                  <div className="bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-[10px]">JD</div>
+                      <span className="text-xs font-bold">Jane Doe</span>
+                      <span className="text-[10px] opacity-40">2h ago</span>
+                    </div>
+                    <p className="text-sm opacity-80">Can't wait for this! The location looks amazing. 🥂</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      <button
-        onClick={createEvent}
-        disabled={loading}
-        className="block bg-blue-500 text-white px-4 py-2 mt-4"
-      >
-        {loading ? "Creating..." : "Create Event"}
-      </button>
-    </div>
+    </main>
   );
 }

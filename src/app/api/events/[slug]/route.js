@@ -6,22 +6,35 @@ export async function GET(req, { params }) {
   try {
     await connectDB();
 
-    const { slug } = params;
+    // 1. FIX: Await params before destructuring (Required in newer Next.js versions)
+    const resolvedParams = await params; 
+    const { slug } = resolvedParams;
 
-    const event = await Event.findOne({ slug });
+    if (!slug) {
+      return NextResponse.json(
+        { error: "Slug is missing" },
+        { status: 400 }
+      );
+    }
+
+    // 2. Find the event
+    const event = await Event.findOne({ slug }).lean();
 
     if (!event) {
+      console.log(`Event with slug "${slug}" not found`);
       return NextResponse.json(
         { error: "Event not found" },
         { status: 404 }
       );
     }
 
+    // 3. Success
     return NextResponse.json(event, { status: 200 });
+
   } catch (error) {
     console.error("GET EVENT ERROR:", error);
     return NextResponse.json(
-      { error: "Server error" },
+      { error: "Internal Server Error", details: error.message },
       { status: 500 }
     );
   }
@@ -31,25 +44,30 @@ export async function DELETE(req, { params }) {
   try {
     await connectDB();
 
-    const { slug } = params;
+    // 1. Await params for Next.js 15 compatibility
+    const resolvedParams = await params;
+    const slug = resolvedParams?.slug;
+
+    if (!slug) {
+      return NextResponse.json({ error: "Slug is required" }, { status: 400 });
+    }
+
+    console.log("Attempting to delete event with slug:", slug);
 
     const deletedEvent = await Event.findOneAndDelete({ slug });
 
     if (!deletedEvent) {
-      return NextResponse.json(
-        { error: "Event not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 
-    return NextResponse.json(
-      { message: "Event deleted successfully" },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: "Deleted successfully" }, { status: 200 });
+
   } catch (error) {
-    console.error("DELETE EVENT ERROR:", error);
+    // Check your terminal for this specific log!
+    console.error("DETAILED DELETE ERROR:", error.message);
+    
     return NextResponse.json(
-      { error: "Server error" },
+      { error: "Internal Server Error", message: error.message },
       { status: 500 }
     );
   }
