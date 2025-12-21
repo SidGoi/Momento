@@ -14,7 +14,7 @@ const PartfulHero = () => {
             </div>
 
             {/* 1. Hero Content Section */}
-            <section className="relative z-10  md:h-screen flex flex-col items-center justify-center px-6 text-center pt-20 pb-10">
+            <section className="relative z-10 h-[70vh]  md:h-screen flex flex-col items-center justify-center px-6 text-center pt-20 pb-10">
                 <b className="font-primary text-sm md:text-xl text-gray-500 mb-4">
                     Create, Connect & Celebrate with Momento!
                 </b>
