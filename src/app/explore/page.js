@@ -79,7 +79,7 @@ const ExplorePublicEvents = () => {
         <div className="flex gap-2 md:gap-5 items-center">
           <Link
             href={"/dashboard"}
-            className="text-white/80 hover:text-white transition font-medium mr-3 hidden md:block"
+            className="text-white/80 hover:text-white transition font-medium mr-3 md:block"
           >
             Dashboard
           </Link>
