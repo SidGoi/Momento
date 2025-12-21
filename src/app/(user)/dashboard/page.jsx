@@ -282,7 +282,7 @@ const Dashboard = () => {
               {myCards.map((card) => (
                 <CarouselItem
                   key={card._id}
-                  className="basis-[62%] sm:basis-[22%] md:basis-[22%] lg:basis-[22%]"
+                  className="basis-[60%] sm:basis-[22%] md:basis-[22%] lg:basis-[20%]"
                 >
                   <Card key={card._id} onDelete={handleRemoveCard} data={card} />
                 </CarouselItem>
