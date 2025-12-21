@@ -66,7 +66,7 @@ const Dashboard = () => {
     setMyCards((prev) => prev.filter((card) => card.slug !== slug));
   };
   return (
-    <div>
+    <div className="overflow-hidden">
       <video
         className="fixed top-0 left-0 w-full h-full object-cover -z-10 pointer-events-none"
         src="https://res.cloudinary.com/dxoxlurnt/video/upload/v1766266085/web_utfj0o.mp4"
@@ -278,7 +278,7 @@ const Dashboard = () => {
             <div className="md:hidden pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
 
             <CarouselContent className="">
-            
+
               {myCards.map((card) => (
                 <CarouselItem
                   key={card._id}

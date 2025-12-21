@@ -94,7 +94,7 @@ export default function CreateCard() {
 
   return (
     <main
-      className={`relative min-h-screen w-full flex flex-col items-center justify-center p-6 lg:p-12 transition-colors duration-500 ${
+      className={`relative overflow-hidden min-h-screen w-full flex flex-col items-center justify-center p-6 lg:p-12 transition-colors duration-500 ${
         selectedBg?.theme === "dark" ? "text-black" : "text-white"
       }`}
     >
@@ -142,7 +142,7 @@ export default function CreateCard() {
             <b className="text-sm md:text-base">{user?.fullName || "Guest"}</b>
           </div>
 
-          <div className="relative group">
+          <div className="relative group mr-5 mt-5">
             <div className="relative z-10 transition-transform duration-500 hover:rotate-0 -rotate-6">
               <Image
                 src={preview || "/Cards/img5.jpg"}
