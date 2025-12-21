@@ -19,7 +19,7 @@ const Card = ({ data, onDelete }) => {
   // Combined Share Logic: Native Share -> Clipboard Fallback
   const handleShare = async (e) => {
     e.preventDefault();
-    
+
     if (navigator.share) {
       try {
         await navigator.share({
@@ -64,7 +64,7 @@ const Card = ({ data, onDelete }) => {
 
   return (
     <div className="relative p-3 min-w-60 max-w-60 rounded-2xl overflow-hidden cursor-pointer group">
-      
+
       {/* Menu Overlay */}
       <Menubar className="absolute top-5 right-5 z-20 cursor-pointer border-none rounded-full h-8 w-8 flex items-center justify-center bg-black/20 hover:bg-black/50 transition duration-300">
         <MenubarMenu>
@@ -77,11 +77,15 @@ const Card = ({ data, onDelete }) => {
             <Link href={`/card/${slug}`}>
               <MenubarItem className="cursor-pointer focus:bg-white/10">Open</MenubarItem>
             </Link>
-            
+
             <MenubarItem className="cursor-pointer focus:bg-white/10" onClick={handleShare}>
               Share Card
             </MenubarItem>
-
+            <a href={`/edit/card/${slug}`}>
+              <MenubarItem className="cursor-pointer focus:bg-white/10" >
+                Edit Card
+              </MenubarItem>
+            </a>
             <div className="h-[1px] bg-white/10 my-1" />
 
             <MenubarItem onClick={handleDelete} className="cursor-pointer text-red-500 focus:bg-red-500/10 focus:text-red-500">
