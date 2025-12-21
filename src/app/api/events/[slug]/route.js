@@ -72,3 +72,26 @@ export async function DELETE(req, { params }) {
     );
   }
 }
+
+export async function PATCH(req, { params }) {
+  try {
+    const { slug } = await params;
+    const body = await req.json();
+    await connectDB();
+
+
+    const updatedEvent = await Event.findOneAndUpdate(
+      { slug: slug },
+      { $set: body },
+      { new: true } // Returns the modified document
+    );
+
+    if (!updatedEvent) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedEvent);
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

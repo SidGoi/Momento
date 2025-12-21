@@ -75,6 +75,15 @@ const EventCard = ({ data, onDelete }) => {
               Copy URL to Share
             </MenubarItem>
 
+            <a href={`/edit/event/${data.slug}`}>
+              <MenubarItem className="cursor-pointer focus:bg-white/10 focus:text-white">
+                Edit Card
+              </MenubarItem>
+            </a>
+
+            <div className="h-[1px] bg-white/10 my-1" />
+
+
             <MenubarItem
               onClick={handleDelete}
               className="cursor-pointer focus:bg-red-500/10 focus:text-red-500 transition duration-200 text-red-500"

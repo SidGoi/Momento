@@ -203,8 +203,17 @@ export default function CreateEvent() {
             />
             <label
               htmlFor="cover-upload"
-              className="absolute bottom-4 right-4 flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full cursor-pointer shadow-lg hover:scale-105 transition-all font-bold text-xs md:text-sm"
+              className="absolute bottom-4 right-4 flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full cursor-pointer shadow-lg hover:scale-105 active:scale-95 transition-all font-semibold text-sm"
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="20"
+                viewBox="0 -960 960 960"
+                width="20"
+                fill="currentColor"
+              >
+                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h295q20 0 30.5 16.5T529-788q-5 17-7 34t-2 34q0 100 70 170t170 70q8 0 17-.5t17-2.5q18-2 32 9t14 28v246q0 33-23.5 56.5T760-120H200Zm80-160h400q12 0 18-11t-2-21L586-459q-6-8-16-8t-16 8L450-320l-74-99q-6-8-16-8t-16 8l-80 107q-8 10-2 21t18 11Z" />
+              </svg>
               Change Photo
             </label>
             <input
@@ -407,7 +416,7 @@ export default function CreateEvent() {
                     }
                     className="bg-transparent border-none p-0 focus-visible:ring-0 text-sm resize-none min-h-[40px] placeholder:text-white/30"
                   />
-                  <Button 
+                  <Button
                     variant="destructive"
                     size="icon"
                     className="h-6 w-6 rounded-full absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity scale-75"
