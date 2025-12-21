@@ -92,7 +92,7 @@ const Card = ({ data, onDelete }) => {
       </Menubar>
 
       {/* Card Content */}
-      <Link href={`/card/${slug}`}>
+      <a href={`/card/${slug}`}>
         <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
           {/* Blurred Background Image */}
           <Image
@@ -122,7 +122,7 @@ const Card = ({ data, onDelete }) => {
             Created {formattedDate}
           </p>
         </div>
-      </Link>
+      </a>
     </div>
   );
 };
