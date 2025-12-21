@@ -266,7 +266,7 @@ export default function CreateCard() {
             className="w-full cursor-pointer py-4 mt-2 bg-white text-black font-black text-lg rounded-xl hover:bg-neutral-200 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
           >
             {loading ? (
-              <span>
+              <span className="flex items-center justify-center gap-2">
                 <Spinner />
                 Creating Card
               </span>
