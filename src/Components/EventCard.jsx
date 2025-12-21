@@ -88,7 +88,7 @@ const EventCard = ({ data, onDelete }) => {
           <span className="bg-black-1 text-white px-4 py-1 absolute bottom-2 left-2">{formattedDate}</span>
         </div>
 
-        <div className='flex flex-col gap-1'>
+        <div className='flex flex-col gap-1 mt-2'>
           <h2 className="text-lg md:text-xl font-bold line-clamp-1">{title}</h2>
           <p className="text-gray-400 font-semibold flex gap-2 text-sm items-center">
             Hosted by{" "}

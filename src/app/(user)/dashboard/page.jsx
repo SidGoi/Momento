@@ -191,7 +191,7 @@ const Dashboard = () => {
 
       <div className="px-4 md:px-14 py-5">
         {events.length === 0 ? (
-          <Link href="/create/card" className="">
+          <Link href="/create/event" className="">
 
             <div className="cursor-pointer hover:bg-gray-900 transition duration-200 hover:border-purple-400 flex text-white font-semibold items-center justify-center h-50 w-50 border-3 border-dashed">  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
 
