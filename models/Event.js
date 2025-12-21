@@ -1,10 +1,5 @@
 import mongoose from "mongoose";
 
-const SectionSchema = new mongoose.Schema({
-  heading: { type: String, required: true },
-  description: { type: String, required: true },
-});
-
 const CommentSchema = new mongoose.Schema(
   {
     message: { type: String, required: true },
@@ -12,7 +7,7 @@ const CommentSchema = new mongoose.Schema(
     userIcon: { type: String },
     timestamp: { type: Date, default: Date.now },
   },
-  { _id: false }
+  { _id: true } // Changed to true to give each comment a unique key for React
 );
 
 const EventSchema = new mongoose.Schema(
@@ -27,25 +22,19 @@ const EventSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     date: { type: Date, required: true },
-    time: { type: String, required: true }, 
+    time: { type: String, required: true },
     location: { type: String, required: true },
     coverImage: { type: String, required: true },
-    font: {
-      heading: { type: String, default: "Poppins" },
-      body: { type: String, default: "Inter" },
-    },
     background: {
-      name: { type: String, required: true },
-      theme: { type: String, enum: ["light", "dark"], required: true },
-      url: { type: String, required: true },
+      name: { type: String },
+      theme: { type: String, enum: ["light", "dark"] },
+      url: { type: String },
     },
-    rsvp: { type: Boolean, default: true },
-    sections: [SectionSchema],
-    commentsEnabled: { type: Boolean, default: false },
-    isPublic: { type: Boolean, default: false }, // ✨ NEW: Visibility toggle
+    commentsEnabled: { type: Boolean, default: true },
     comments: [CommentSchema],
   },
   { timestamps: true }
 );
 
+// This ensures the model is not overwritten during Hot Module Replacement (HMR)
 export default mongoose.models.Event || mongoose.model("Event", EventSchema);
