@@ -117,8 +117,8 @@ const Card = ({ data, onDelete }) => {
         </div>
 
         <div className="mt-3 flex flex-col gap-0.5 text-white">
-          <h2 className="text-sm md:text-base font-bold line-clamp-1">{title}</h2>
-          <p className="text-[10px] md:text-xs text-gray-400">
+          <h2 className="text-lg md:text-xl font-bold line-clamp-1">{title}</h2>
+          <p className="text-sm md:text-md text-gray-400">
             Created {formattedDate}
           </p>
         </div>
