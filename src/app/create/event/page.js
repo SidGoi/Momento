@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/Components/ui/select";
 import { Label } from "@/Components/ui/label";
+import { toast } from "sonner";
 
 export default function CreateEvent() {
   const router = useRouter();
@@ -93,7 +94,7 @@ export default function CreateEvent() {
       !coverImage ||
       !selectedBg
     ) {
-      alert("All fields required ❗");
+      toast.error("All fields required!");
       return;
     }
 
@@ -139,10 +140,11 @@ export default function CreateEvent() {
       });
 
       if (!res.ok) throw new Error("Event creation failed");
+      toast.success("Event Created Successfully!");
       router.push("/dashboard");
     } catch (err) {
       console.error(err);
-      alert("Something went wrong ❌");
+      toast.error("Something went wrong ❌");
     } finally {
       setLoading(false);
     }
