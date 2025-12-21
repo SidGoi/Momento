@@ -5,7 +5,7 @@ import { Marquee } from "./ui/marquee";
 
 const ScrollingCards = ({ cards }) => {
   // We double the cards to create the seamless infinite loop effect
-  const scrollingContent = [...cards, ...cards];
+
 
   return (
     <section className="relative z-10 w-full py-12 md:py-20 bg-gray-50/50">

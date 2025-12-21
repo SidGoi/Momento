@@ -24,7 +24,7 @@ const HomePage = () => {
     }
   }, [isLoaded, isSignedIn, router]);
 
-  if (!isLoaded) return null; // prevent flicker
+  if (!isLoaded) return null;
 
   const eventData = [
     { title: "Clothing Swap", image: "/card1.jpg" },
