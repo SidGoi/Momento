@@ -12,8 +12,8 @@ const Navbar = () => {
     const closeMenu = () => setOpen(false);
 
     return (
-        <header className="w-full z-50">
-            <nav className="flex bg-white px-4 md:px-10 py-6 md:py-8 rounded-b-xl mx-3 md:mx-10 items-center justify-between relative z-50">
+        <header className="w-full z-50 fixed  top-5">
+            <nav className="flex top-0 bg-white/90 px-4 md:px-10 py-6 md:py-4 rounded-2xl mx-3 md:mx-10 items-center justify-between relative z-50">
                 {/* Logo */}
                 <Link href="/" onClick={closeMenu}>
                     <Image
@@ -70,6 +70,7 @@ const Navbar = () => {
                             SignUp
                         </Link>
                     </SignedOut>
+                   
 
                     <button
                         className="cursor-pointer relative z-[60] w-8 h-8 flex flex-col justify-center items-center gap-1.5 focus:outline-none"

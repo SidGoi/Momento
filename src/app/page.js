@@ -1,44 +1,66 @@
 import CircularImageCarousel from "@/Components/CircularImageCarousel";
+import CTAComponent from "@/Components/CTAComponent";
 import Footer from "@/Components/Footer";
 import Navbar from "@/Components/Navbar";
+import PartfulHero from "@/Components/PartfulHero";
+import ScrollingCards from "@/Components/ScrollingCards";
+import {
+  ScrollVelocityContainer,
+  ScrollVelocityRow,
+} from "@/Components/ui/scroll-based-velocity";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 
 const HomePage = () => {
+  const eventData = [
+    { title: "Clothing Swap", image: "/card1.jpg" },
+    { title: "Disco Night", image: "/card2.png" },
+    { title: "PLG Runners Meet", image: "/card3.jpg" },
+    { title: "Alumni BBQ", image: "/card4.jpg" },
+    { title: "Girls Who Pilates", image: "/card5.jpg" },
+    { title: "Beach Clean Up", image: "/card6.jpg" },
+    { title: "Sunset Yoga", image: "/card7.jpg" },
+    { title: "Tech Mixer", image: "/card8.jpg" },
+    { title: "Art Gallery Opening", image: "/card9.jpg" },
+    { title: "Coffee & Coding", image: "/card10.jpg" },
+  ];
   return (
     <div className="min-h-screen  text-white overflow-x-hidden">
       <Navbar />
+      <PartfulHero />
+      <ScrollingCards cards={eventData} />
 
-      {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center px-4 pt-20 pb-10">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-          Capture the <span className="text-gray-400">Momento</span>
-        </h1>
-        <p className="text-lg md:text-xl text-gray-400 max-w-2xl mb-10">
-          The all-in-one platform to create digital cards, collect RSVPs, and
-          share unforgettable event experiences with your favorite people.
-        </p>
+      <ScrollVelocityContainer>
+        baseVelocity={5}
+        <ScrollVelocityRow className="mb-3 text-2xl md:text-5xl font-bold text-black-1">
+          Remember your mortality to unlock your vitality — The clock is
+          ticking, make every second a masterpiece.
+        </ScrollVelocityRow>
+        <ScrollVelocityRow
+          className="text-2xl md:text-5xl font-bold text-black-1"
+          baseVelocity={5}
+          direction={-1}
+        >
+          Not to fear death, but to never begin to live — Waste no more time
+          arguing what a good man should be. Be one.
+        </ScrollVelocityRow>
+      </ScrollVelocityContainer>
+      <CTAComponent
+        imageSrc={"/CTA1.jpg"}
+        href={"/create/card"}
+        title="Invite your past guests back by using Momento"
+        description="Easily reach out to everyone who attended your previous events with just one click."
+      />
 
-        <div className="flex gap-4">
-          <SignedIn>
-            <Link
-              href="/dashboard"
-              className="px-8 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition"
-            >
-              Go to Dashboard
-            </Link>
-          </SignedIn>
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="px-8 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition">
-                Get Started for Free
-              </button>
-            </SignInButton>
-          </SignedOut>
-        </div>
-      </section>
-
+      <CTAComponent
+        imageSrc={"/CTA2.jpg"}
+        href={"/create/event"}
+        reverse
+        btn="Try it for free"
+        title="Event pages that match your aesthetic"
+        description="Make your invites unmistakably yours with easy-to-use designs, custom animations, and a vibe that’s all about  you."
+      />
 
       <Footer />
     </div>
