@@ -278,10 +278,10 @@ const Dashboard = () => {
             <div className="md:hidden pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
 
             <CarouselContent className="">
-
+            
               {myCards.map((card) => (
                 <CarouselItem
-                  key={event._id}
+                  key={card._id}
                   className="basis-[62%] sm:basis-[22%] md:basis-[22%] lg:basis-[22%]"
                 >
                   <Card key={card._id} onDelete={handleRemoveCard} data={card} />
