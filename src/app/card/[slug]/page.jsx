@@ -19,12 +19,26 @@ export default async function CardPage({ params }) {
     const data = await res.json();
     const isVideo = data.background?.url?.endsWith(".mp4");
 
-    
+
 
     return (
       <main className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"}`}>
 
-
+        <header className="w-full absolute top-8 px-6 left-0 flex md:hidden animate-sender items-center justify-between ">
+          <Link href={'/'}>
+            <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
+              alt="logo"
+              priority
+              height={400}
+              width={300}
+              className="h-8 w-auto"
+            />
+          </Link>
+          <div className="flex gap-2 items-center justify-center">
+            <CreateButton url={'/create/card'} />
+            <ShareButton title={data.title} />
+          </div>
+        </header>
 
 
 
@@ -39,7 +53,7 @@ export default async function CardPage({ params }) {
         <CardAnimations>
           <div className="relative z-10 flex flex-col items-center justify-center gap-8 p-6 text-center perspective-1000">
 
-            <header className="w-full animate-sender flex items-center justify-between ">
+            <header className="w-full md:flex animate-sender hidden items-center justify-between ">
               <Link href={'/'}>
                 <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
                   alt="logo"
@@ -50,10 +64,12 @@ export default async function CardPage({ params }) {
                 />
               </Link>
               <div className="flex gap-2 items-center justify-center">
-              <CreateButton url={'/create/card'} />
-              <ShareButton title={data.title} />
+                <CreateButton url={'/create/card'} />
+                <ShareButton title={data.title} />
               </div>
             </header>
+
+
 
 
             {/* Sender Info */}
