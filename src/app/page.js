@@ -27,16 +27,16 @@ const HomePage = () => {
   if (!isLoaded) return null;
 
   const eventData = [
-    { title: "Clothing Swap", image: "/card1.jpg" },
-    { title: "Disco Night", image: "/card2.png" },
-    { title: "PLG Runners Meet", image: "/card3.jpg" },
-    { title: "Alumni BBQ", image: "/card4.jpg" },
-    { title: "Girls Who Pilates", image: "/card5.jpg" },
-    { title: "Beach Clean Up", image: "/card6.jpg" },
-    { title: "Sunset Yoga", image: "/card7.jpg" },
-    { title: "Tech Mixer", image: "/card8.jpg" },
-    { title: "Art Gallery Opening", image: "/card9.jpg" },
-    { title: "Coffee & Coding", image: "/card10.jpg" },
+    { title: "Clothing Swap", image: "/Card1.jpg" },
+    { title: "Disco Night", image: "/Card2.png" },
+    { title: "PLG Runners Meet", image: "/Card3.jpg" },
+    { title: "Alumni BBQ", image: "/Card4.jpg" },
+    { title: "Girls Who Pilates", image: "/Card5.jpg" },
+    { title: "Beach Clean Up", image: "/Card6.jpg" },
+    { title: "Sunset Yoga", image: "/Card7.jpg" },
+    { title: "Tech Mixer", image: "/Card8.jpg" },
+    { title: "Art Gallery Opening", image: "/Card9.jpg" },
+    { title: "Coffee & Coding", image: "/Card10.jpg" },
   ];
 
   return (
