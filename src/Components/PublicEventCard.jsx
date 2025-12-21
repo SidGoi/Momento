@@ -24,7 +24,7 @@ const PublicEventCard = ({ data }) => {
 
       <Link href={`/event/${data.slug}`}>
         {/* Image Container */}
-        <div className="relative overflow-hidden aspect-video md:aspect-square">
+        <div className="relative overflow-hidden aspect-square md:aspect-square">
           <Image
             src={coverImage}
             alt={title}
