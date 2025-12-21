@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "./ui/menubar";
 import { toast } from "sonner";
+import ShareButton from "./ShareButton";
 
 const Card = ({ data, onDelete }) => {
   const { title, image, createdAt, slug } = data;
@@ -93,8 +94,11 @@ const Card = ({ data, onDelete }) => {
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
+        
       </Menubar>
-
+<div className="absolute top-3 left-3 z-30 scale-75">
+          <ShareButton />
+</div>
       {/* Card Content */}
       <a href={`/card/${slug}`}>
         <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">

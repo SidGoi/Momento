@@ -38,7 +38,7 @@ export default async function CardPage({ params }) {
         <CardAnimations>
           <div className="relative z-10 flex flex-col items-center justify-center gap-8 p-6 text-center perspective-1000">
 
-            <header className="animate-sender flex items-center justify-between w-50 md:w-80">
+            <header className="w-full animate-sender flex items-center justify-between ">
               <Link href={'/'}>
                 <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
                   alt="logo"
