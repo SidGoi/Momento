@@ -80,7 +80,7 @@ export default function AddBackground() {
       {/* Back Button */}
       <Link 
         href="/admin/" 
-        className="absolute top-8 left-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+        className="md:absolute self-start ml-3 mb-6 top-8 left-8 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
       >
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor">
           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>

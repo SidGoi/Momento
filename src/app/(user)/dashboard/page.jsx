@@ -137,7 +137,7 @@ const Dashboard = () => {
                     {/* Left Side */}
                     <div className="flex items-center gap-4">
                       <Image
-                        src="/envelope.png"
+                        src="/card.jpg"
                         alt="Card Thumbnail"
                         width={50}
                         height={50}
