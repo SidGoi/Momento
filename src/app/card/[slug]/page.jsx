@@ -1,11 +1,14 @@
+
 import Image from "next/image";
 import React from "react";
 import CardAnimations from "@/Components/CardAnimations"; // Path to your wrapper
+import Link from "next/link";
+import ShareButton from "@/Components/ShareButton";
 
 export default async function CardPage({ params }) {
   const { slug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
+ 
   try {
     const res = await fetch(`${baseUrl}/api/cards/${slug}`, { cache: "no-store" });
     if (!res.ok) {
@@ -15,8 +18,15 @@ export default async function CardPage({ params }) {
     const data = await res.json();
     const isVideo = data.background?.url?.endsWith(".mp4");
 
+
+
     return (
       <main className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"}`}>
+
+
+
+
+
         {/* Background Layer (Unchanged) */}
         {isVideo ? (
           <video src={data.background.url} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover -z-10" />
@@ -27,6 +37,20 @@ export default async function CardPage({ params }) {
         {/* Wrap content in Animation Component */}
         <CardAnimations>
           <div className="relative z-10 flex flex-col items-center justify-center gap-8 p-6 text-center perspective-1000">
+
+            <header className="animate-sender flex items-center justify-between w-50 md:w-80">
+              <Link href={'/'}>
+                <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
+                  alt="logo"
+                  priority
+                  height={400}
+                  width={300}
+                  className="h-8 w-auto"
+                />
+              </Link>
+            <ShareButton title={data.title} />
+            </header>
+
 
             {/* Sender Info */}
             <div className="animate-sender flex items-center gap-3 bg-black/10 backdrop-blur-md px-8 py-2 rounded-full border border-white/10">
