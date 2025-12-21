@@ -145,7 +145,7 @@ export default function CreateCard() {
           <div className="relative group mr-5 mt-5">
             <div className="relative z-10 transition-transform duration-500 hover:rotate-0 -rotate-6">
               <Image
-                src={preview || "/Cards/img5.jpg"}
+                src={preview || "/previewCard.png"}
                 height={400}
                 width={400}
                 alt="preview"
