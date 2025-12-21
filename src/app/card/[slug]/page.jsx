@@ -4,11 +4,12 @@ import React from "react";
 import CardAnimations from "@/Components/CardAnimations"; // Path to your wrapper
 import Link from "next/link";
 import ShareButton from "@/Components/ShareButton";
+import CreateButton from "@/Components/CreateButton";
 
 export default async function CardPage({ params }) {
   const { slug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
- 
+
   try {
     const res = await fetch(`${baseUrl}/api/cards/${slug}`, { cache: "no-store" });
     if (!res.ok) {
@@ -18,7 +19,7 @@ export default async function CardPage({ params }) {
     const data = await res.json();
     const isVideo = data.background?.url?.endsWith(".mp4");
 
-
+    
 
     return (
       <main className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"}`}>
@@ -48,7 +49,10 @@ export default async function CardPage({ params }) {
                   className="h-8 w-auto"
                 />
               </Link>
-            <ShareButton title={data.title} />
+              <div className="flex gap-2 items-center justify-center">
+              <CreateButton url={'/create/card'} />
+              <ShareButton title={data.title} />
+              </div>
             </header>
 
 

@@ -15,6 +15,8 @@ export default function CreateEvent() {
   const [coverImage, setCoverImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [time, setTime] = useState("");
+  const [commentsEnabled, setCommentsEnabled] = useState(true);
 
   const [backgrounds, setBackgrounds] = useState([]);
   const [selectedBg, setSelectedBg] = useState(null);
@@ -22,13 +24,24 @@ export default function CreateEvent() {
 
   useEffect(() => {
     const fetchBackgrounds = async () => {
-      const res = await fetch("/api/backgrounds");
-      const data = await res.json();
-      setBackgrounds(data);
+      try {
+        const res = await fetch("/api/backgrounds");
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setBackgrounds(data);
+        } else if (data && Array.isArray(data.backgrounds)) {
+          setBackgrounds(data.backgrounds);
+        } else {
+          console.error("API did not return an array:", data);
+          setBackgrounds([]); 
+        }
+      } catch (error) {
+        console.error("Failed to fetch backgrounds:", error);
+        setBackgrounds([]); 
+      }
     };
     fetchBackgrounds();
   }, []);
-
   useEffect(() => {
     if (!coverImage) return setPreview(null);
     const url = URL.createObjectURL(coverImage);
@@ -61,31 +74,59 @@ export default function CreateEvent() {
     setSections(sections.filter((_, i) => i !== index));
 
   const createEvent = async () => {
-    if (!title || !description || !date || !location || !coverImage)
+    if (
+      !title ||
+      !description ||
+      !date ||
+      !time ||
+      !location ||
+      !coverImage ||
+      !selectedBg
+    ) {
       return alert("All fields required ❗");
+    }
 
     try {
       setLoading(true);
+
       const imageUrl = await uploadToCloudinary();
-      const slug = title.toLowerCase().replace(/\s+/g, "-"); // simple slug
+
+      const slug = title.toLowerCase().replace(/\s+/g, "-") + "-" + Date.now(); // ✅ unique slug
 
       const res = await fetch("/api/events", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          slug,
+          userId: user.id,
+
           title,
           description,
           date,
+          time,
           location,
           coverImage: imageUrl,
-          slug,
-          host: { name: user.fullName, avatar: user.imageUrl, id: user.id },
-          font: { heading: "Playfair_Display", body: "Inter" },
-          background: { primary: "#fff", secondary: "#f2f2f2" },
+
+          host: {
+            name: user.fullName,
+            avatar: user.imageUrl,
+            id: user.id,
+          },
+
+          font: {
+            heading: "Playfair_Display",
+            body: "Inter",
+          },
+
+          background: {
+            name: selectedBg.name,
+            theme: selectedBg.theme,
+            url: selectedBg.url,
+          },
+
           rsvp: true,
           sections,
-          userId: user.id,
-          background: selectedBg,
+          commentsEnabled,
         }),
       });
 
@@ -132,11 +173,26 @@ export default function CreateEvent() {
         className="block w-full my-2"
       />
       <input
+        type="time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
+        className="block w-full my-2"
+      />
+
+      <input
         placeholder="Location"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
         className="block w-full my-2"
       />
+      <div className="flex items-center gap-2 my-3">
+        <input
+          type="checkbox"
+          checked={commentsEnabled}
+          onChange={(e) => setCommentsEnabled(e.target.checked)}
+        />
+        <span>Enable Comments</span>
+      </div>
 
       <h3 className="mt-4 font-semibold">Sections</h3>
       {sections.map((sec, i) => (

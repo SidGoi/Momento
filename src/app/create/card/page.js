@@ -25,6 +25,10 @@ export default function CreateCard() {
   const [selectedBg, setSelectedBg] = useState(null);
   const [font, setFont] = useState("Poppins");
 
+  if (!user) {
+    router.push("/sign-up"); // or "/sign-in"
+  }
+
   useEffect(() => {
     const fetchBackgrounds = async () => {
       try {
@@ -205,10 +209,8 @@ export default function CreateCard() {
           </div>
 
           <div className="">
-            <label className="text-xs font-bold">
-              Typography
-            </label>
-            <Select  value={font} onValueChange={(value) => setFont(value)}>
+            <label className="text-xs font-bold">Typography</label>
+            <Select value={font} onValueChange={(value) => setFont(value)}>
               <SelectTrigger
                 className="w-full h-12 bg-white/10 border-white/20 rounded-xl backdrop-blur-md mt-3"
                 style={{ fontFamily: font }}
@@ -228,9 +230,7 @@ export default function CreateCard() {
           </div>
 
           <div className="">
-            <label className="text-xs font-bold">
-              Theme Background
-            </label>
+            <label className="text-xs font-bold">Theme Background</label>
             <div className="flex flex-wrap mt-3 gap-3 justify-start">
               {backgrounds.map((bg) => (
                 <button

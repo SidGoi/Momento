@@ -94,11 +94,11 @@ const Card = ({ data, onDelete }) => {
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
-        
+
       </Menubar>
-<div className="absolute top-3 left-3 z-30 scale-75">
-          <ShareButton />
-</div>
+      <div className="absolute top-3 left-3 z-30 scale-75">
+        <ShareButton />
+      </div>
       {/* Card Content */}
       <a href={`/card/${slug}`}>
         <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">

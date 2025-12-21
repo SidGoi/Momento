@@ -7,25 +7,72 @@ export async function POST(req) {
     await connectDB();
 
     const body = await req.json();
-    
 
-    // 🔥 Validate required fields
-    if (!body.title || !body.date || !body.coverImage || !body.userId) {
+    const {
+      slug,
+      userId,
+      host,
+      title,
+      description,
+      date,
+      time,
+      location,
+      coverImage,
+      font,
+      background,
+      rsvp,
+      sections,
+      commentsEnabled,
+    } = body;
+
+    // 🔥 Required validation
+    if (
+      !slug ||
+      !userId ||
+      !host ||
+      !title ||
+      !description ||
+      !date ||
+      !time ||
+      !location ||
+      !coverImage
+    ) {
       return NextResponse.json(
         { message: "Missing required fields" },
         { status: 400 }
       );
     }
 
+    // ❌ Prevent duplicate slug
+    const existingEvent = await Event.findOne({ slug });
+    if (existingEvent) {
+      return NextResponse.json(
+        { message: "Event with this slug already exists" },
+        { status: 409 }
+      );
+    }
+
     const event = await Event.create({
-      ...body,
-      date: new Date(body.date), // ✅ FIX date issue
+      slug,
+      userId,
+      host,
+      title,
+      description,
+      date: new Date(date), // ✅ correct date handling
+      time,
+      location,
+      coverImage,
+      font,
+      background,
+      rsvp,
+      sections,
+      commentsEnabled: commentsEnabled ?? true, // default true
+      comments: [], // 🔒 never accept comments on create
     });
 
     return NextResponse.json(event, { status: 201 });
   } catch (error) {
     console.error("EVENT CREATE ERROR:", error);
-
     return NextResponse.json(
       { message: error.message },
       { status: 500 }
@@ -33,24 +80,16 @@ export async function POST(req) {
   }
 }
 
-
 export async function GET(req) {
   try {
     await connectDB();
 
-    // Read query params
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
 
-    let events;
+    const filter = userId ? { userId } : {};
 
-    if (userId) {
-      // Get events of specific user
-      events = await Event.find({ userId }).sort({ createdAt: -1 });
-    } else {
-      // Get all events
-      events = await Event.find({}).sort({ createdAt: -1 });
-    }
+    const events = await Event.find(filter).sort({ createdAt: -1 });
 
     return NextResponse.json(events, { status: 200 });
   } catch (error) {
@@ -61,4 +100,3 @@ export async function GET(req) {
     );
   }
 }
-
