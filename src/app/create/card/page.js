@@ -26,7 +26,7 @@ export default function CreateCard() {
   const [font, setFont] = useState("Poppins");
 
   if (!user) {
-    router.push("/sign-up"); // or "/sign-in"
+    router.push("/auth/sign-up"); // or "/sign-in"
   }
 
   useEffect(() => {
