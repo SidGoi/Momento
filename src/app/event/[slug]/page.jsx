@@ -30,32 +30,32 @@ export default function EventViewPage() {
   }, []);
 
   /* Fetch Event & Comments in parallel */
- useEffect(() => {
-  if (!slug) return;
+  useEffect(() => {
+    if (!slug) return;
 
-  const fetchData = async () => {
-    try {
-      // Fetch event details and comments
-      const [eventRes, commentsRes] = await Promise.all([
-        fetch(`/api/events/${slug}`),
-        fetch(`/api/events/${slug}/comments`, { cache: "no-store" }) // Prevent caching
-      ]);
+    const fetchData = async () => {
+      try {
+        // Fetch event details and comments
+        const [eventRes, commentsRes] = await Promise.all([
+          fetch(`/api/events/${slug}`),
+          fetch(`/api/events/${slug}/comments`, { cache: "no-store" }) // Prevent caching
+        ]);
 
-      const eventData = await eventRes.json();
-      const commentsData = await commentsRes.json();
+        const eventData = await eventRes.json();
+        const commentsData = await commentsRes.json();
 
-      setEvent(eventData);
-      // Ensure we are setting the comments from the DB
-      setComments(Array.isArray(commentsData) ? commentsData : []);
-    } catch (err) {
-      console.error("Failed to fetch data", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+        setEvent(eventData);
+        // Ensure we are setting the comments from the DB
+        setComments(Array.isArray(commentsData) ? commentsData : []);
+      } catch (err) {
+        console.error("Failed to fetch data", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchData();
-}, [slug]);
+    fetchData();
+  }, [slug]);
 
   const handlePostComment = async () => {
     if (!commentText.trim() || !user) return;
@@ -101,12 +101,12 @@ export default function EventViewPage() {
           {event.background?.url?.endsWith(".mp4") ? (
             <video src={event.background.url} autoPlay loop muted playsInline className="w-full h-full object-cover" />
           ) : (
-            <Image 
-              src={event.background?.url || "/default-bg.jpg"} 
-              fill 
-              className="object-cover" 
-              alt="Background" 
-              priority 
+            <Image
+              src={event.background?.url || "/default-bg.jpg"}
+              fill
+              className="object-cover"
+              alt="Background"
+              priority
               unoptimized={event.background?.url?.endsWith('.gif')}
             />
           )}
@@ -130,7 +130,7 @@ export default function EventViewPage() {
         </header>
 
         <div className="w-full max-w-6xl flex flex-col lg:flex-row gap-8 lg:gap-12 items-start z-10">
-          
+
           {/* LEFT COLUMN */}
           <div className="flex flex-col items-center gap-6 lg:sticky lg:top-10 w-full lg:w-1/2">
             <div className="animate-ui flex items-center gap-3 bg-black/10 backdrop-blur-md px-8 py-2 rounded-full border border-white/10">
@@ -167,6 +167,21 @@ export default function EventViewPage() {
                 <span>{event.location}</span>
               </div>
             </div>
+
+            {event.sections && event.sections.length > 0 && (
+              <div className="space-y-4">
+                {event.sections.map((sec, idx) => (
+                  <div key={idx} className="animate-section bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-[2rem]">
+                    <h3 className="text-lg font-bold mb-2" style={{ fontFamily: event.font?.heading }}>
+                      {sec.heading}
+                    </h3>
+                    <p className="text-sm opacity-80 leading-relaxed whitespace-pre-wrap">
+                      {sec.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {event.commentsEnabled && (
               <div className="animate-section bg-black/30 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-6 shadow-xl">
@@ -217,6 +232,8 @@ export default function EventViewPage() {
               </div>
             )}
           </div>
+
+
         </div>
       </main>
     </EventAnimations>

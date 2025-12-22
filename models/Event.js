@@ -10,6 +10,11 @@ const CommentSchema = new mongoose.Schema(
   { _id: true } // Changed to true to give each comment a unique key for React
 );
 
+const SectionSchema = new mongoose.Schema({
+  heading: { type: String },
+  description: { type: String },
+});
+
 const EventSchema = new mongoose.Schema(
   {
     slug: { type: String, unique: true, required: true },
@@ -18,6 +23,10 @@ const EventSchema = new mongoose.Schema(
       name: { type: String, required: true },
       avatar: { type: String, required: true },
       id: { type: String, required: true },
+    },
+    font: {
+      heading: { type: String, default: "Poppins" },
+      body: { type: String, default: "Inter" },
     },
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -32,6 +41,7 @@ const EventSchema = new mongoose.Schema(
     },
     commentsEnabled: { type: Boolean, default: true },
     comments: [CommentSchema],
+    sections: [SectionSchema],
   },
   { timestamps: true }
 );
