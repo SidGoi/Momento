@@ -421,7 +421,7 @@ export default function CreateEvent() {
                   <Button
                     variant="destructive"
                     size="icon"
-                    className="md:h-6 md:w-6 rounded-full absolute -top-2 -right-2 opacity-100 transition-opacity scale-75"
+                    className="md:h-6 md:w-6 rounded-full flex items-center justify-center absolute -top-2 -right-2 opacity-100 transition-opacity text-3xl md:text-2xl md:scale-100"
                     onClick={() => removeSection(i)}
                   >
                     ×
