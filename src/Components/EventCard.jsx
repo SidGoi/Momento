@@ -100,7 +100,9 @@ const EventCard = ({ data, onDelete }) => {
       )}
 
       <div className="absolute top-4 left-4 z-30 scale-75">
-        <ShareButton />
+             <ShareButton href={`/event/${data.slug}`} />
+     
+
       </div>
       <Link href={`/event/${data.slug}`}>
 

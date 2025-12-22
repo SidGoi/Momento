@@ -19,7 +19,8 @@ const PublicEventCard = ({ data }) => {
       
       {/* Share Button Overlay */}
       <div className="absolute top-4 left-4 z-30 scale-90 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <ShareButton />
+              <ShareButton href={`/event/${data.slug}`} />
+      
       </div>
 
       <Link href={`/event/${data.slug}`}>

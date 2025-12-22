@@ -2,9 +2,9 @@
 
 import React from "react";
 
-export default function ShareButton({ title }) {
+export default function ShareButton({ title, href }) {
   const handleShare = async () => {
-    const url = window.location.href;
+    const url = href || window.location.href;
 
     if (navigator.share) {
       try {
