@@ -53,7 +53,7 @@ export default function CreateEvent() {
     "bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:bg-white/20 transition-all";
 
   useEffect(() => {
-    if (isLoaded && !user) router.push("/sign-up");
+    if (isLoaded && !user) router.push("/auth/sign-up");
   }, [isLoaded, user, router]);
 
   useEffect(() => {
