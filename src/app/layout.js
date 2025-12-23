@@ -7,7 +7,7 @@ import {
   Space_Mono,
   Quicksand,
   Nabla,
-  Luckiest_Guy
+  Luckiest_Guy,
 } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -54,6 +54,11 @@ export const LuckiestGuy = Luckiest_Guy({
 export const metadata = {
   title: "Momento",
   description: "Create, Connect & Celebrate!",
+  icons: {
+    icon: "/momento.png",
+    shortcut: "/momento.png",
+    apple: "/momento.png",
+  },
 };
 
 export default function RootLayout({ children }) {
