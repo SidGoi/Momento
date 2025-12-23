@@ -12,6 +12,7 @@ import {
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import TopLoader from "@/Components/TopLoader";
 const nabla = Nabla({
   subsets: ["latin"],
   variable: "--font-nabla",
@@ -66,8 +67,8 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={quicksand.className}>
+          <TopLoader />
           {children}
-
           <Toaster position="bottom-right" richColors theme="dark" />
         </body>
       </html>
