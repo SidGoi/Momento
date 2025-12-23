@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Textarea } from "@/Components/ui/textarea";
@@ -25,11 +25,12 @@ import {
 } from "@/Components/ui/select";
 import { Label } from "@/Components/ui/label";
 import { toast } from "sonner";
+import Link from "next/link";
+import GoiButton from "@/Components/GoiButton";
 
 export default function CreateEvent() {
   const router = useRouter();
   const { user, isLoaded } = useUser();
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -153,8 +154,7 @@ export default function CreateEvent() {
   if (!isLoaded) return <MomentoLoader />;
 
   return (
-    <main className="relative min-h-screen w-full flex items-center justify-center p-4 md:p-8 lg:p-12 overflow-x-hidden">
-      {/* 🌌 Background */}
+    <main className="relative min-h-screen w-full flex flex-col items-center justify-center p-4 md:p-8 lg:p-12 overflow-x-hidden">
       <div className="fixed inset-0 -z-10">
         {selectedBg?.url?.endsWith(".mp4") ? (
           <video
@@ -177,9 +177,7 @@ export default function CreateEvent() {
         )}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
       </div>
-
       <div className="w-full max-w-6xl flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-        {/* 🖼 LEFT – Preview (Sticky on desktop) */}
         <div className="flex flex-col items-center gap-6 lg:sticky lg:top-10 w-full lg:w-1/2">
           <div className="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-full border border-white/20 backdrop-blur text-white">
             <span className="text-sm">Hosted by</span>
@@ -201,7 +199,7 @@ export default function CreateEvent() {
               width={400}
               height={400}
               alt="preview"
-              className="rounded-3xl border-4 border-white/30 shadow-2xl object-cover aspect-square w-full"
+              className="rounded-3xl border-3 border-white/30 shadow-2xl object-cover aspect-square w-full"
             />
             <label
               htmlFor="cover-upload"
@@ -209,12 +207,12 @@ export default function CreateEvent() {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                height="20"
+                height="24px"
                 viewBox="0 -960 960 960"
-                width="20"
-                fill="currentColor"
+                width="24px"
+                fill="#111"
               >
-                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h295q20 0 30.5 16.5T529-788q-5 17-7 34t-2 34q0 100 70 170t170 70q8 0 17-.5t17-2.5q18-2 32 9t14 28v246q0 33-23.5 56.5T760-120H200Zm80-160h400q12 0 18-11t-2-21L586-459q-6-8-16-8t-16 8L450-320l-74-99q-6-8-16-8t-16 8l-80 107q-8 10-2 21t18 11Z" />
+                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h298q20 0 30.5 17.5T531-785q-5 16-8 32t-3 33q0 83 58.5 141.5T720-520q17 0 33-3t32-8q20-7 37.5 3t17.5 30v298q0 33-23.5 56.5T760-120H200Zm40-160h480L570-480 450-320l-90-120-120 160Zm480-320q-17 0-28.5-11.5T680-640v-40h-40q-17 0-28.5-11.5T600-720q0-17 11.5-28.5T640-760h40v-40q0-17 11.5-28.5T720-840q17 0 28.5 11.5T760-800v40h40q17 0 28.5 11.5T840-720q0 17-11.5 28.5T800-680h-40v40q0 17-11.5 28.5T720-600Z" />
               </svg>
               Change Photo
             </label>
@@ -244,8 +242,6 @@ export default function CreateEvent() {
             />
           </div>
         </div>
-
-        {/* 🎛 RIGHT – Controls */}
         <div className="w-full lg:w-[450px] bg-black/20 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-6 md:p-8 space-y-6 shadow-2xl text-white">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>

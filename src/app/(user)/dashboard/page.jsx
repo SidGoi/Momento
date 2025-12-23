@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import Card from "@/Components/Card";
 import EventCard from "@/Components/EventCard";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/Components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/Components/ui/dialog";
 import Button from "@/Components/Button";
 import Image from "next/image";
 import MomentoLoader from "@/Components/MomentoLoader/MomentoLoader";
@@ -93,7 +93,8 @@ const Dashboard = () => {
             <DialogTrigger>
               <Button label="Create" variant="light" />
             </DialogTrigger>
-            <DialogContent className="text-white bg-black cursor-pointer">
+            <DialogContent
+              className="text-white bg-black cursor-pointer">
               <DialogHeader>
                 <DialogTitle>Create New</DialogTitle>
               </DialogHeader>
@@ -111,7 +112,7 @@ const Dashboard = () => {
                       />
 
                       <div>
-                        <h3 className="text-lg font-medium text-white">
+                        <h3 className="text-lg font-semibold text-white">
                           Event
                         </h3>
                         <p className="text-sm text-gray-400">Collect RSVPs</p>
@@ -146,7 +147,7 @@ const Dashboard = () => {
 
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="text-lg font-medium text-white">
+                          <h3 className="text-lg font-semibold text-white">
                             Card
                           </h3>
 
