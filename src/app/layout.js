@@ -6,7 +6,8 @@ import {
   Bebas_Neue,
   Space_Mono,
   Quicksand,
-  Nabla
+  Nabla,
+  Luckiest_Guy
 } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -42,6 +43,11 @@ export const bebasNeue = Bebas_Neue({
 
 export const spaceMono = Space_Mono({
   weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+export const LuckiestGuy = Luckiest_Guy({
+  weight: ["400"],
   subsets: ["latin"],
 });
 

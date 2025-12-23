@@ -295,7 +295,7 @@ export default function CreateEvent() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-neutral-900 text-white border-white/10">
-                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono"].map(
+                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono", "Luckiest Guy"].map(
                   (f) => (
                     <SelectItem key={f} value={f} style={{ fontFamily: f }}>
                       {f}

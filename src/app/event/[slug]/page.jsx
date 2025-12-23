@@ -184,9 +184,9 @@ export default function EventViewPage() {
             )}
 
             {event.commentsEnabled && (
-              <div className="animate-section bg-black/30 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-6 shadow-xl">
-                <h3 className="uppercase tracking-widest text-xs opacity-60 mb-4 flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" /> Guestbook
+              <div className="animate-section bg-black/30 text-white backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-6 shadow-xl">
+                <h3 className="uppercase tracking-widest text-xs mb-4 flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 " /> Guestbook
                 </h3>
 
                 {!isSignedIn ? (
@@ -202,12 +202,12 @@ export default function EventViewPage() {
                       placeholder="Write a sweet note..."
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
-                      className="bg-white/5 border-white/10 focus:border-purple-500 transition-colors"
+                      className="bg-white/5 text-white placeholder:text-white border-white/10 focus:border-purple-500 transition-colors"
                     />
                     <Button
                       onClick={handlePostComment}
                       disabled={posting || !commentText.trim()}
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                      className="w-full cursor-pointer bg-purple-600 hover:bg-purple-700 text-white"
                     >
                       {posting ? "Posting..." : "Post Message"}
                     </Button>
@@ -215,7 +215,7 @@ export default function EventViewPage() {
                 )}
 
                 <div className="space-y-4 max-h-[350px] overflow-y-scroll pr-2 custom-scrollbar">
-                  {comments.length === 0 && <p className="text-center opacity-40 py-4 text-sm">No messages yet...</p>}
+                  {comments.length === 0 && <p className="text-center py-4 text-sm">No messages yet...</p>}
                   {comments.map((c, i) => (
                     <div key={i} className="bg-white/5 p-4 rounded-2xl border border-white/5">
                       <div className="flex items-center gap-2 mb-2">

@@ -218,7 +218,7 @@ export default function CreateCard() {
                 <SelectValue placeholder="Choose a Font" />
               </SelectTrigger>
               <SelectContent className="bg-neutral-900 border-white/10 text-white">
-                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono"].map(
+                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono", "Luckiest Guy"].map(
                   (f) => (
                     <SelectItem key={f} value={f} style={{ fontFamily: f }}>
                       {f}
