@@ -141,7 +141,7 @@ export default function EditCard() {
             key={selectedBg.url}
             src={selectedBg.url}
             autoPlay muted loop playsInline
-            className="w-full h-full object-cover"
+            className="w-screen h-screen object-cover"
           />
         ) : selectedBg ? (
           <Image

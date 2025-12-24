@@ -179,7 +179,7 @@ export default function EditEvent() {
       {/* 🌌 Background (Same as Create) */}
       <div className="fixed inset-0 -z-10">
         {selectedBg?.url?.endsWith(".mp4") ? (
-          <video src={selectedBg.url} autoPlay loop muted className="w-full h-full object-cover" />
+          <video src={selectedBg.url} autoPlay loop muted className="w-screen h-screen object-cover" />
         ) : (
           <Image src={selectedBg?.url || "/default-bg.jpg"} fill className="object-cover" alt="bg" priority />
         )}

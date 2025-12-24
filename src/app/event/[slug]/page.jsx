@@ -99,7 +99,7 @@ export default function EventViewPage() {
         {/* Background Layer */}
         <div className="fixed inset-0 -z-10">
           {event.background?.url?.endsWith(".mp4") ? (
-            <video src={event.background.url} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+            <video src={event.background.url} autoPlay loop muted playsInline className="w-screen h-screen object-cover" />
           ) : (
             <Image
               src={event.background?.url || "/default-bg.jpg"}

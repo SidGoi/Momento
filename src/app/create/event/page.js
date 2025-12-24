@@ -326,12 +326,12 @@ export default function CreateEvent() {
                     <video
                       src={bg.url}
                       muted
-                      className="w-full h-full object-cover"
+                      className="w-screen h-screen object-cover"
                     />
                   ) : (
                     <img
                       src={bg.url}
-                      className="w-full h-full object-cover"
+                      className="w-screen h-screen object-cover"
                       alt="option"
                     />
                   )}

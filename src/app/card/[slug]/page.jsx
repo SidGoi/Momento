@@ -44,7 +44,7 @@ export default async function CardPage({ params }) {
 
         {/* Background Layer (Unchanged) */}
         {isVideo ? (
-          <video src={data.background.url} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover -z-10" />
+          <video src={data.background.url} autoPlay muted loop playsInline className="absolute inset-0 w-screen h-screen object-cover -z-10" />
         ) : (
           <Image priority src={data.background?.url || "/default-bg.jpg"} alt="background" fill className="absolute inset-0 object-cover -z-10" />
         )}
