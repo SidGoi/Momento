@@ -68,7 +68,7 @@ const Dashboard = () => {
   return (
     <div className="overflow-hidden">
       <video
-        className="fixed top-0 left-0 w-full h-full object-cover -z-10 pointer-events-none"
+        className="fixed top-0 left-0 w-screen h-screen object-cover -z-10 pointer-events-none"
         src="https://res.cloudinary.com/dxoxlurnt/video/upload/v1766266085/web_utfj0o.mp4"
         autoPlay
         loop
@@ -184,8 +184,6 @@ const Dashboard = () => {
           </div>
         </div>
       </header>
-
-
 
       <div className="flex flex-col mt-8 md:mt-0 font-bold text-2xl md:text-3xl px-4 md:px-14 gap-2 text-white">
         <h1>Welcome back {user.fullName}!</h1>
