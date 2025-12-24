@@ -147,7 +147,7 @@ export default function EventViewPage() {
               className="animate-cover rounded-xl border-2 aspect-square w-80 object-cover shadow-2xl"
             />
 
-            <h1 className="animate-text text-4xl md:text-6xl font-black text-center leading-tight">
+            <h1 className="animate-text text-4xl md:text-6xl font-black text-center leading-tight" style={{ fontFamily: event.font?.heading }}>
               {event.title}
             </h1>
             <p className="animate-text opacity-80 text-center max-w-md">
