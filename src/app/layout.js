@@ -8,6 +8,8 @@ import {
   Quicksand,
   Nabla,
   Luckiest_Guy,
+  Rubik_Gemstones,
+  Berkshire_Swash,
 } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -48,6 +50,16 @@ export const spaceMono = Space_Mono({
 });
 
 export const LuckiestGuy = Luckiest_Guy({
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+export const rubikGemstones = Rubik_Gemstones({
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+export const berkshireSwash = Berkshire_Swash({
   weight: ["400"],
   subsets: ["latin"],
 });

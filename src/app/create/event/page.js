@@ -27,6 +27,7 @@ import { Label } from "@/Components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
 import GoiButton from "@/Components/GoiButton";
+import fonts from "@/Fonts";
 
 export default function CreateEvent() {
   const router = useRouter();
@@ -45,6 +46,7 @@ export default function CreateEvent() {
   const [sections, setSections] = useState([]);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState("18:00");
+  const [socialLinks, setSocialLinks] = useState([]);
 
   // State to control Popover open/close
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -84,6 +86,20 @@ export default function CreateEvent() {
 
   const removeSection = (i) =>
     setSections(sections.filter((_, idx) => idx !== i));
+
+  const addSocialLink = () => {
+    setSocialLinks([...socialLinks, { label: "", url: "" }]);
+  };
+
+  const updateSocialLink = (index, field, value) => {
+    const copy = [...socialLinks];
+    copy[index][field] = value;
+    setSocialLinks(copy);
+  };
+
+  const removeSocialLink = (index) => {
+    setSocialLinks(socialLinks.filter((_, i) => i !== index));
+  };
 
   const createEvent = async () => {
     if (
@@ -137,6 +153,7 @@ export default function CreateEvent() {
           sections,
           commentsEnabled,
           isPublic,
+          socialLinks,
         }),
       });
 
@@ -295,13 +312,11 @@ export default function CreateEvent() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-neutral-900 text-white border-white/10">
-                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono", "Luckiest Guy"].map(
-                  (f) => (
-                    <SelectItem key={f} value={f} style={{ fontFamily: f }}>
-                      {f}
-                    </SelectItem>
-                  )
-                )}
+                {fonts.map((f) => (
+                  <SelectItem key={f} value={f} style={{ fontFamily: f }}>
+                    {f}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -340,44 +355,55 @@ export default function CreateEvent() {
             </div>
           </div>
 
-          {/* Toggles */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
-              <Label htmlFor="comment" className="cursor-pointer font-medium">
-                Enable Comments
-              </Label>
-              <Switch
-                id="comment"
-                checked={commentsEnabled}
-                onCheckedChange={setCommentsEnabled}
-                className="
-    data-[state=checked]:bg-purple-500 
-    data-[state=unchecked]:bg-white/20
-  "
-              />
+          {/* Social Links */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="font-bold text-xs uppercase tracking-widest opacity-60">
+                Social / Important Links
+              </h3>
+              <Button
+                onClick={addSocialLink}
+                size="sm"
+                className="h-7 text-[10px] bg-white/20 hover:bg-white/30 text-white rounded-full"
+              >
+                + ADD LINK
+              </Button>
             </div>
 
-            <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
-              <div className="flex flex-col">
-                <Label htmlFor="public" className="cursor-pointer font-medium">
-                  Make it Public
-                </Label>
-                <span className="text-[10px] opacity-50">
-                  Visible on global explore
-                </span>
-              </div>
-              <Switch
-                id="public"
-                checked={isPublic}
-                onCheckedChange={setIsPublic}
-                className="
-    data-[state=checked]:bg-purple-500 
-    data-[state=unchecked]:bg-white/20
-  "
-              />
+            <div className="space-y-4">
+              {socialLinks.map((link, i) => (
+                <div
+                  key={i}
+                  className="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2 relative"
+                >
+                  <Input
+                    placeholder="Label (e.g. Instagram, Join Meeting)"
+                    value={link.label}
+                    onChange={(e) =>
+                      updateSocialLink(i, "label", e.target.value)
+                    }
+                    className="bg-transparent border-none focus-visible:ring-0"
+                  />
+
+                  <Input
+                    placeholder="https://example.com"
+                    value={link.url}
+                    onChange={(e) => updateSocialLink(i, "url", e.target.value)}
+                    className="bg-transparent border-none focus-visible:ring-0 text-sm"
+                  />
+
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    className="md:h-6 md:w-6 rounded-full flex items-center justify-center absolute -top-2 -right-2 opacity-100 transition-opacity text-3xl md:text-2xl md:scale-100"
+                    onClick={() => removeSocialLink(i)}
+                  >
+                    ×
+                  </Button>
+                </div>
+              ))}
             </div>
           </div>
-
           {/* Sections Management */}
           <div className="space-y-4">
             <div className="flex items-center justify-between px-1">
@@ -424,6 +450,44 @@ export default function CreateEvent() {
                   </Button>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Toggles */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+              <Label htmlFor="comment" className="cursor-pointer font-medium">
+                Enable Comments
+              </Label>
+              <Switch
+                id="comment"
+                checked={commentsEnabled}
+                onCheckedChange={setCommentsEnabled}
+                className="
+    data-[state=checked]:bg-purple-500 
+    data-[state=unchecked]:bg-white/20
+  "
+              />
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+              <div className="flex flex-col">
+                <Label htmlFor="public" className="cursor-pointer font-medium">
+                  Make it Public
+                </Label>
+                <span className="text-[10px] opacity-50">
+                  Visible on global explore
+                </span>
+              </div>
+              <Switch
+                id="public"
+                checked={isPublic}
+                onCheckedChange={setIsPublic}
+                className="
+    data-[state=checked]:bg-purple-500 
+    data-[state=unchecked]:bg-white/20
+  "
+              />
             </div>
           </div>
 

@@ -22,7 +22,8 @@ export async function POST(req) {
       rsvp,
       sections,
       commentsEnabled,
-      isPublic, // ✨ Added
+      isPublic,
+      socialLinks
     } = body;
 
     // Validation
@@ -50,7 +51,8 @@ export async function POST(req) {
       rsvp: rsvp ?? true,
       sections,
       commentsEnabled: commentsEnabled ?? false,
-      isPublic: isPublic ?? false, // ✨ Added
+      isPublic: isPublic ?? false,
+      socialLinks,
       comments: [],
     });
 

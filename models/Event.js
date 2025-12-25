@@ -10,6 +10,14 @@ const CommentSchema = new mongoose.Schema(
   { _id: true } // Changed to true to give each comment a unique key for React
 );
 
+const SocialLinkSchema = new mongoose.Schema(
+  {
+    label: { type: String, required: true },
+    url: { type: String, required: true },
+  },
+  { _id: true }
+);
+
 const SectionSchema = new mongoose.Schema({
   heading: { type: String },
   description: { type: String },
@@ -42,6 +50,7 @@ const EventSchema = new mongoose.Schema(
     commentsEnabled: { type: Boolean, default: true },
     comments: [CommentSchema],
     sections: [SectionSchema],
+    socialLinks: [SocialLinkSchema],
   },
   { timestamps: true }
 );

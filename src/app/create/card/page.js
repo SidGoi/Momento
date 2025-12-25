@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from "@/Components/ui/select";
 import { Spinner } from "@/Components/ui/spinner";
+import fonts from "@/Fonts";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -218,7 +219,7 @@ export default function CreateCard() {
                 <SelectValue placeholder="Choose a Font" />
               </SelectTrigger>
               <SelectContent className="bg-neutral-900 border-white/10 text-white">
-                {["Poppins", "Pacifico", "Bebas Neue", "Space Mono", "Luckiest Guy"].map(
+                {fonts.map(
                   (f) => (
                     <SelectItem key={f} value={f} style={{ fontFamily: f }}>
                       {f}

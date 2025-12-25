@@ -86,6 +86,16 @@ export default function EventViewPage() {
     }
   };
 
+  const getFavicon = (url) => {
+    try {
+      const domain = new URL(url).hostname;
+      return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+    } catch {
+      return "/link.svg"; // fallback icon
+    }
+  };
+
+
   if (!mounted || loading || !isLoaded) return <MomentoLoader />;
   if (!event) return <div className="text-white text-center mt-20">Event not found</div>;
 
@@ -167,6 +177,45 @@ export default function EventViewPage() {
                 <span>{event.location}</span>
               </div>
             </div>
+            {/* SOCIAL LINKS */}
+            {event.socialLinks && event.socialLinks.length > 0 && (
+              <div className="animate-section space-y-3">
+                <h3 className="uppercase tracking-widest text-xs opacity-60 ml-1">
+                  Links
+                </h3>
+
+                <div className="flex flex-col gap-3">
+                  {event.socialLinks.map((link, idx) => (
+                    <a
+                      key={idx}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 px-5 py-4 rounded-2xl 
+                     bg-white/10 backdrop-blur-md 
+                     border border-white/10
+                     hover:bg-white/20 hover:scale-[1.02]
+                     transition-all"
+                    >
+                      <img
+                        src={getFavicon(link.url)}
+                        alt="icon"
+                        className="w-6 h-6"
+                      />
+
+                      <span className="font-medium text-sm">
+                        {link.label}
+                      </span>
+
+                      <span className="ml-auto opacity-40 text-xs">
+                        Open
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
 
             {event.sections && event.sections.length > 0 && (
               <div className="space-y-4">
