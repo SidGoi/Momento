@@ -7,6 +7,8 @@ import ShareButton from "@/Components/ShareButton";
 import CreateButton from "@/Components/CreateButton";
 import { optimizeCloudinaryUrl } from "@/lib/optimizeCloudinaryUrl";
 
+
+
 export async function generateMetadata({ params }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/api/cards/${params.slug}`, {
@@ -42,6 +44,7 @@ export async function generateMetadata({ params }) {
 
 
 export default async function CardPage({ params }) {
+  
   const { slug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -71,7 +74,7 @@ export default async function CardPage({ params }) {
         <CardAnimations>
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 p-6 text-center perspective-1000">
 
-            <header className="w-full fixed top-6 px-6 animate-sender flex items-center justify-between ">
+            <header className="w-full fixed top-0 py-6 px-6 animate-sender flex items-center justify-between z-30 ">
               <Link href={'/'}>
                 <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
                   alt="logo"
@@ -121,7 +124,7 @@ export default async function CardPage({ params }) {
               >
                 {data.title}
               </h1>
-              <p className="animate-text text-lg sm:text-xl md:text-2xl font-medium opacity-90 leading-relaxed">
+              <p className="animate-text text-lg sm:text-xl md:text-2xl font-medium opacity-90 leading-relaxed max-h-[23vh] overflow-scroll">
                 {data.description}
               </p>
             </div>
