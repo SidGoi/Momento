@@ -58,8 +58,9 @@ export default async function CardPage({ params }) {
     return (
       <main className={`relative min-h-screen w-full pt-10 overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"}`}>
 
+        {/* <video src={'/demo.mp4'} autoPlay muted loop playsInline className="fixed inset-0 w-screen h-screen object-cover z-50 mix-blend-lighten" /> */}
 
-        {/* Background Layer (Unchanged) */}
+
         {isVideo ? (
           <video src={data.background.url} autoPlay muted loop playsInline className="fixed inset-0 w-screen h-screen object-cover -z-10" />
         ) : (
