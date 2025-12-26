@@ -7,6 +7,40 @@ import ShareButton from "@/Components/ShareButton";
 import CreateButton from "@/Components/CreateButton";
 import { optimizeCloudinaryUrl } from "@/lib/optimizeCloudinaryUrl";
 
+export async function generateMetadat({ params }) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const res = await fetch(`${baseUrl}/api/cards/${params.slug}`, {
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+
+  return {
+    title: data.title,
+    description: data.description,
+    openGraph: {
+      title: data.title,
+      description: data.description,
+      url: `${baseUrl}/card/${params.slug}`,
+      images: [
+        {
+          url: data.image,
+          width: 1200,
+          height: 630,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data.title,
+      description: data.description,
+      images: [data.image],
+    },
+  };
+}
+
+
 export default async function CardPage({ params }) {
   const { slug } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
