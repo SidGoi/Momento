@@ -1,5 +1,13 @@
 "use client";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/Components/ui/dialog";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -26,9 +34,10 @@ export default function CreateCard() {
   const [selectedBg, setSelectedBg] = useState(null);
   const [font, setFont] = useState("Poppins");
 
-  if (!user) {
-    router.push("/auth/signup"); // or "/sign-in"
-  }
+  const [audios, setAudios] = useState([]);
+  const [audioLoading, setAudioLoading] = useState(false);
+  const [selectedAudio, setSelectedAudio] = useState(null);
+  const [audioCategory, setAudioCategory] = useState("christmas");
 
   useEffect(() => {
     const fetchBackgrounds = async () => {
@@ -64,6 +73,22 @@ export default function CreateCard() {
 
     const data = await res.json();
     return data.secure_url;
+  };
+
+  const fetchPixabayAudio = async (category = "christmas") => {
+    try {
+      setAudioLoading(true);
+
+      const res = await fetch(`/api/pixabay/audio?q=${category}`);
+      const data = await res.json();
+
+      setAudios(data.hits || []);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load audio");
+    } finally {
+      setAudioLoading(false);
+    }
   };
 
   const createCard = async () => {
@@ -219,15 +244,71 @@ export default function CreateCard() {
                 <SelectValue placeholder="Choose a Font" />
               </SelectTrigger>
               <SelectContent className="bg-neutral-900 border-white/10 text-white">
-                {fonts.map(
-                  (f) => (
-                    <SelectItem key={f} value={f} style={{ fontFamily: f }}>
-                      {f}
-                    </SelectItem>
-                  )
-                )}
+                {fonts.map((f) => (
+                  <SelectItem key={f} value={f} style={{ fontFamily: f }}>
+                    {f}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
+          </div>
+
+          <div className="">
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  onClick={() => fetchPixabayAudio()}
+                  className="w-full py-3 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 transition"
+                >
+                  🎵 Add Background Music
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-neutral-900 text-white border-white/10 max-w-lg">
+          
+                <DialogHeader>
+                  <DialogTitle>Background Music</DialogTitle>
+                  <DialogDescription>
+                    Choose a soft background music (optional)
+                  </DialogDescription>
+                </DialogHeader>
+
+                {audioLoading ? (
+                  <div className="flex justify-center py-10">
+                    <Spinner />
+                  </div>
+                ) : (
+                  <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                    {audios.map((audio) => (
+                      <div
+                        key={audio.id}
+                        className={`flex items-center justify-between gap-3 p-3 rounded-xl border cursor-pointer transition
+            ${
+              selectedAudio?.id === audio.id
+                ? "border-purple-500 bg-purple-500/10"
+                : "border-white/10 hover:bg-white/5"
+            }`}
+                        onClick={() =>
+                          setSelectedAudio({
+                            title: audio.tags,
+                            url: audio.audio,
+                            volume: 0.4,
+                          })
+                        }
+                      >
+                        <div className="flex flex-col">
+                          <b className="text-sm">{audio.tags}</b>
+                          <span className="text-xs opacity-60">
+                            Duration: {Math.round(audio.duration)}s
+                          </span>
+                        </div>
+
+                        <audio controls src={audio.audio} className="h-8" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="">
