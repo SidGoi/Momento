@@ -209,12 +209,6 @@ const Dashboard = () => {
             }}
             className="relative"
           >
-            {events.length > 3
-              &&
-              <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
-
-            }
-            <div className="md:hidden pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
             <CarouselContent className="">
               {events.map((event) => (
                 <CarouselItem
@@ -272,12 +266,7 @@ const Dashboard = () => {
             className="relative"
           >
 
-            {myCards.length > 3
-              &&
-              <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
-            }
 
-            <div className="md:hidden pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/40 to-transparent z-10" />
 
             <CarouselContent className="">
 
