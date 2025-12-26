@@ -5,6 +5,7 @@ import CardAnimations from "@/Components/CardAnimations"; // Path to your wrappe
 import Link from "next/link";
 import ShareButton from "@/Components/ShareButton";
 import CreateButton from "@/Components/CreateButton";
+import { optimizeCloudinaryUrl } from "@/lib/optimizeCloudinaryUrl";
 
 export default async function CardPage({ params }) {
   const { slug } = await params;
@@ -13,18 +14,17 @@ export default async function CardPage({ params }) {
   try {
     const res = await fetch(`${baseUrl}/api/cards/${slug}`, { cache: "no-store" });
     if (!res.ok) {
-      if (res.status === 404) return <div className="flex items-center justify-center min-h-screen">❌ Card Not Found</div>;
+      if (res.status === 404) return <div className="flex items-center justify-center min-h-screen">Card Not Found</div>;
       throw new Error("Failed to fetch");
     }
     const data = await res.json();
     const isVideo = data.background?.url?.endsWith(".mp4");
-
-
+    data.background.url = optimizeCloudinaryUrl(data.background.url, { width: 1200 })
 
     return (
       <main className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"}`}>
 
-        <header className="w-full absolute top-8 px-6 left-0 flex md:hidden animate-sender items-center justify-between ">
+        {/* <header className="w-full absolute top-8 px-6 left-0 flex md:hidden animate-sender items-center justify-between ">
           <Link href={'/'}>
             <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
               alt="logo"
@@ -38,13 +38,12 @@ export default async function CardPage({ params }) {
             <CreateButton url={'/create/card'} />
             <ShareButton title={data.title} />
           </div>
-        </header>
-
+        </header> */}
 
 
         {/* Background Layer (Unchanged) */}
         {isVideo ? (
-          <video src={data.background.url} autoPlay muted loop playsInline className="absolute inset-0 w-screen h-screen object-cover -z-10" />
+          <video src={data.background.url} autoPlay muted loop playsInline className="fixed inset-0 w-screen h-screen object-cover -z-10" />
         ) : (
           <Image priority src={data.background?.url || "/default-bg.jpg"} alt="background" fill className="absolute inset-0 object-cover -z-10" />
         )}
@@ -75,7 +74,7 @@ export default async function CardPage({ params }) {
             {/* Sender Info */}
             <div className="animate-sender flex items-center gap-3 bg-black/10 backdrop-blur-md px-8 py-2 rounded-full border border-white/10">
               <span className="text-sm opacity-80">From</span>
-              <Image src={data.host.avatar} height={40} width={40} className="h-8 w-8 rounded-full object-cover border border-white/20" alt="host" />
+              <Image src={optimizeCloudinaryUrl(data.host.avatar)} height={40} width={40} className="h-8 w-8 rounded-full object-cover border border-white/20" alt="host" />
               <b className="text-lg">{data.host.name}</b>
             </div>
 
@@ -83,7 +82,7 @@ export default async function CardPage({ params }) {
             <div className="animate-card relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-white/30 to-transparent rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
               <Image
-                src={data.image}
+                src={optimizeCloudinaryUrl(data.image)}
                 alt={data.title}
                 height={400}
                 width={400}
