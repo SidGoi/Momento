@@ -9,6 +9,7 @@ import Button from "@/Components/Button";
 import Image from "next/image";
 import MomentoLoader from "@/Components/MomentoLoader/MomentoLoader";
 import { Carousel, CarouselContent, CarouselItem } from "@/Components/ui/carousel";
+import { optimizeCloudinaryUrl } from "@/lib/optimizeCloudinaryUrl";
 
 const Dashboard = () => {
   const { user, isLoaded } = useUser();
@@ -69,7 +70,7 @@ const Dashboard = () => {
     <div className="overflow-hidden">
       <video
         className="fixed top-0 left-0 w-screen h-screen object-cover -z-10 pointer-events-none"
-        src="https://res.cloudinary.com/dxoxlurnt/video/upload/v1766266085/web_utfj0o.mp4"
+        src={optimizeCloudinaryUrl("https://res.cloudinary.com/dxoxlurnt/video/upload/v1766266085/web_utfj0o.mp4")}
         autoPlay
         loop
         muted
