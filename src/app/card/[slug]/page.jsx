@@ -52,7 +52,7 @@ export default async function CardPage({ params }) {
               </div>
             </header>
 
-            <div className="flex items-center justify-center flex-col gap-3">
+            <div className="flex items-center justify-center flex-col gap-6">
 
 
 
