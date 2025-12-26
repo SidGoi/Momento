@@ -29,10 +29,10 @@ export default function ShareButton({ title, href }) {
   return (
     <button
       onClick={handleShare}
-      className="group relative flex h-12 w-12 items-center justify-center rounded-full border border-black/30 bg-black/10 shadow-xl backdrop-blur-lg transition-all duration-300 hover:bg-black/20 cursor-pointer hover:border-black/50 hover:shadow-2xl active:scale-90"
+      className="group relative flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/10 shadow-xl backdrop-blur-lg transition-all duration-300 hover:bg-white/10 cursor-pointer hover:border-white/20 hover:shadow-2xl active:scale-90"
     >
       {/* Gloss */}
-      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-black/10 to-transparent opacity-50" />
+      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/10 to-transparent opacity-50" />
 
       {/* Icon */}
       <svg

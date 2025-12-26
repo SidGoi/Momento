@@ -22,23 +22,7 @@ export default async function CardPage({ params }) {
     data.background.url = optimizeCloudinaryUrl(data.background.url, { width: 1200 })
 
     return (
-      <main className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"}`}>
-
-        {/* <header className="w-full absolute top-8 px-6 left-0 flex md:hidden animate-sender items-center justify-between ">
-          <Link href={'/'}>
-            <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
-              alt="logo"
-              priority
-              height={400}
-              width={300}
-              className="h-8 w-auto"
-            />
-          </Link>
-          <div className="flex gap-2 items-center justify-center">
-            <CreateButton url={'/create/card'} />
-            <ShareButton title={data.title} />
-          </div>
-        </header> */}
+      <main className={`relative min-h-screen w-full pt-10 overflow-hidden flex items-center justify-center ${data.background?.theme === "dark" ? "text-black" : "text-white"}`}>
 
 
         {/* Background Layer (Unchanged) */}
@@ -50,9 +34,9 @@ export default async function CardPage({ params }) {
 
         {/* Wrap content in Animation Component */}
         <CardAnimations>
-          <div className="relative z-10 flex flex-col items-center justify-center gap-8 p-6 text-center perspective-1000">
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 p-6 text-center perspective-1000">
 
-            <header className="w-full md:flex animate-sender hidden items-center justify-between ">
+            <header className="w-full fixed top-6 px-6 animate-sender flex items-center justify-between ">
               <Link href={'/'}>
                 <Image src={data.background?.theme === "dark" ? '/momento-dark.svg' : '/momento.svg'}
                   alt="logo"
@@ -68,38 +52,41 @@ export default async function CardPage({ params }) {
               </div>
             </header>
 
+            <div className="flex items-center justify-center flex-col gap-3">
 
 
 
-            {/* Sender Info */}
-            <div className="animate-sender flex items-center gap-3 bg-black/10 backdrop-blur-md px-8 py-2 rounded-full border border-white/10">
-              <span className="text-sm opacity-80">From</span>
-              <Image src={optimizeCloudinaryUrl(data.host.avatar)} height={40} width={40} className="h-8 w-8 rounded-full object-cover border border-white/20" alt="host" />
-              <b className="text-lg line-clamp-1">{data.host.name}</b>
-            </div>
+              {/* Sender Info */}
+              <div className="animate-sender flex items-center gap-3 bg-black/10 backdrop-blur-md px-6 py-1 md:px-8 md:py-2 rounded-full border border-white/10">
+                <span className="text-xs sm:text-sm opacity-80">From</span>
+                <Image src={optimizeCloudinaryUrl(data.host.avatar)} height={40} width={40} className="h-7 w-7 sm:h-8 sm:w-8 rounded-full object-cover border border-white/20" alt="host" />
+                <b className="text-sm sm:text-lg line-clamp-1">{data.host.name}</b>
+              </div>
 
-            {/* Main Card Image with 3D Class */}
-            <div className="animate-card relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-white/30 to-transparent rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <Image
-                src={optimizeCloudinaryUrl(data.image)}
-                alt={data.title}
-                height={400}
-                width={400}
-                priority
-                className="relative w-72 h-72 md:w-96 md:h-96 object-cover rounded-2xl shadow-2xl border border-white/20"
-              />
+              {/* Main Card Image with 3D Class */}
+              <div className="animate-card relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-white/30 to-transparent rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                <Image
+                  src={optimizeCloudinaryUrl(data.image)}
+                  alt={data.title}
+                  height={400}
+                  width={400}
+                  priority
+                  className="relative w-72 h-72 md:w-96 md:h-96 object-cover rounded-2xl shadow-2xl border border-white/20"
+                />
+              </div>
+
             </div>
 
             {/* Text Content */}
             <div className="max-w-md space-y-2">
               <h1
                 style={{ fontFamily: data.font }}
-                className="animate-text text-5xl md:text-6xl font-bold drop-shadow-lg"
+                className="animate-text text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg"
               >
                 {data.title}
               </h1>
-              <p className="animate-text text-xl md:text-2xl font-medium opacity-90 leading-relaxed">
+              <p className="animate-text text-lg sm:text-xl md:text-2xl font-medium opacity-90 leading-relaxed">
                 {data.description}
               </p>
             </div>
