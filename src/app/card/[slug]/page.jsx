@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import React from "react";
-import CardAnimations from "@/Components/CardAnimations"; // Path to your wrapper
+import CardAnimations from "@/Components/CardAnimations";
 import Link from "next/link";
 import ShareButton from "@/Components/ShareButton";
 import CreateButton from "@/Components/CreateButton";
