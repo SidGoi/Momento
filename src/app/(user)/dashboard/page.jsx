@@ -19,32 +19,26 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!isLoaded || !user) return;
-
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-
         const [eventsRes, cardsRes] = await Promise.all([
           fetch(`/api/events?userId=${user.id}`),
           fetch(`/api/cards?userId=${user.id}`)
         ]);
-
         if (!eventsRes.ok || !cardsRes.ok) {
           throw new Error("Failed to fetch dashboard data");
         }
-
         const eventsData = await eventsRes.json();
         const cardsData = await cardsRes.json();
-
         setEvents(eventsData);
         setMyCards(cardsData);
       } catch (error) {
         console.error("Dashboard fetch error:", error);
       } finally {
-        setLoading(false); // ✅ ONLY here
+        setLoading(false);
       }
     };
-
     fetchDashboardData();
   }, [isLoaded, user]);
 

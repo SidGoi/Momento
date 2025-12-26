@@ -75,7 +75,7 @@ export default async function CardPage({ params }) {
             <div className="animate-sender flex items-center gap-3 bg-black/10 backdrop-blur-md px-8 py-2 rounded-full border border-white/10">
               <span className="text-sm opacity-80">From</span>
               <Image src={optimizeCloudinaryUrl(data.host.avatar)} height={40} width={40} className="h-8 w-8 rounded-full object-cover border border-white/20" alt="host" />
-              <b className="text-lg">{data.host.name}</b>
+              <b className="text-lg line-clamp-1">{data.host.name}</b>
             </div>
 
             {/* Main Card Image with 3D Class */}
