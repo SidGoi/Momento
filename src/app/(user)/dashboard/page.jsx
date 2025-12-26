@@ -85,7 +85,7 @@ const Dashboard = () => {
 
       <video
         className="fixed top-0 left-0 w-screen h-screen object-cover -z-50 pointer-events-none"
-        src={optimizeCloudinaryUrl("https://res.cloudinary.com/dxoxlurnt/video/upload/v1766266085/web_utfj0o.mp4")}
+        src={optimizeCloudinaryUrl("https://res.cloudinary.com/dxoxlurnt/video/upload/v1766779315/1227_xgc3se.mp4")}
         autoPlay
         loop
         muted
@@ -281,7 +281,7 @@ const Dashboard = () => {
       <div className="flex flex-col justify-center gap-3 text-white">
 
         {/* Events */}
-        <div className="font-bold text-2xl md:text-3xl mt-5 flex items-center justify-between text-white">
+        <div className="font-bold mt-5 flex items-center justify-between text-white">
           <div>
             <h1 className=" font-bold text-4xl">Your Events</h1>
           </div>
