@@ -34,10 +34,6 @@ export default function CreateCard() {
   const [selectedBg, setSelectedBg] = useState(null);
   const [font, setFont] = useState("Poppins");
 
-  const [audios, setAudios] = useState([]);
-  const [audioLoading, setAudioLoading] = useState(false);
-  const [selectedAudio, setSelectedAudio] = useState(null);
-  const [audioCategory, setAudioCategory] = useState("christmas");
 
   useEffect(() => {
     const fetchBackgrounds = async () => {
@@ -75,21 +71,6 @@ export default function CreateCard() {
     return data.secure_url;
   };
 
-  const fetchPixabayAudio = async (category = "christmas") => {
-    try {
-      setAudioLoading(true);
-
-      const res = await fetch(`/api/pixabay/audio?q=${category}`);
-      const data = await res.json();
-
-      setAudios(data.hits || []);
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to load audio");
-    } finally {
-      setAudioLoading(false);
-    }
-  };
 
   const createCard = async () => {
     if (!title || !description || !image || !selectedBg) {

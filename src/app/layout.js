@@ -10,6 +10,7 @@ import {
   Luckiest_Guy,
   Rubik_Gemstones,
   Berkshire_Swash,
+  DM_Sans
 } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -25,6 +26,10 @@ export const poppins = Poppins({
   subsets: ["latin"],
 });
 export const quicksand = Quicksand({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+export const dmsans = DM_Sans({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
@@ -78,7 +83,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={quicksand.className}>
+        <body className={dmsans.className}>
           <TopLoader />
           {children}
           <Toaster position="bottom-right" richColors theme="dark" />

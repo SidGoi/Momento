@@ -52,7 +52,7 @@ const EventCard = ({ data, onDelete }) => {
   };
 
   return (
-    <div className="relative flex flex-col min-w-70 max-w-70 gap-3 cursor-pointer p-4  hover:bg-gray-800/80 text-white w-fit transition duration-200">
+    <div className="relative flex flex-col min-w-70 max-w-70 gap-3 bg-gray-800/80 md:bg-transparent cursor-pointer p-4  md:hover:bg-gray-800/80 text-white w-fit transition duration-200">
       {!isExplorePage && (
 
         <Menubar className="absolute top-6 right-6 z-20 cursor-pointer border-none rounded-full h-8 w-8 bg-gray-700/90 flex items-center justify-center hover:bg-gray-700 transition duration-300 shadow-none">
