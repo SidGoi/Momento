@@ -7,7 +7,7 @@ import ShareButton from "@/Components/ShareButton";
 import CreateButton from "@/Components/CreateButton";
 import { optimizeCloudinaryUrl } from "@/lib/optimizeCloudinaryUrl";
 
-export async function generateMetadat({ params }) {
+export async function generateMetadata({ params }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/api/cards/${params.slug}`, {
     cache: "no-store",
