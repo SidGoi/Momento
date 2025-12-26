@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export default function ShareButton({ title, href }) {
+export default function ShareButton({ title, href, host }) {
   const handleShare = async () => {
     const url = href || window.location.href;
 
@@ -10,7 +10,7 @@ export default function ShareButton({ title, href }) {
       try {
         await navigator.share({
           title,
-          text: `Check out this card: ${title}`,
+          text: `Card from: ${host}`,
           url,
         });
       } catch (err) {

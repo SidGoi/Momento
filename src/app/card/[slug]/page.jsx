@@ -82,7 +82,7 @@ export default async function CardPage({ params }) {
               </Link>
               <div className="flex gap-2 items-center justify-center">
                 <CreateButton url={'/create/card'} />
-                <ShareButton title={data.title} />
+                <ShareButton title={data.title} host={data.host.name} />
               </div>
             </header>
 
