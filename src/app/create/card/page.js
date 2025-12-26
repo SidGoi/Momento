@@ -253,7 +253,7 @@ export default function CreateCard() {
             </Select>
           </div>
 
-          <div className="">
+          {/* <div className="">
             <Dialog>
               <DialogTrigger asChild>
                 <button
@@ -309,7 +309,7 @@ export default function CreateCard() {
                 )}
               </DialogContent>
             </Dialog>
-          </div>
+          </div> */}
 
           <div className="">
             <label className="text-xs font-bold">Theme Background</label>
