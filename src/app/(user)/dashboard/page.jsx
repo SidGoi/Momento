@@ -230,8 +230,8 @@ const Dashboard = () => {
 
 
         <div className="flex items-center gap-2">
-          <p className={` md:text-md font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? 'bg-black-2' : ''}`} onClick={() => setCardStatus(1)}>Your</p>
-          <p className={` md:text-md font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? '' : 'bg-black-2'}`} onClick={() => setCardStatus(2)}>Received</p>
+          <p className={`md:text-md cursor-pointer font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? 'bg-black-2/50' : ''}`} onClick={() => setCardStatus(1)}>Your</p>
+          <p className={`md:text-md cursor-pointer font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? '' : 'bg-black-2/50'}`} onClick={() => setCardStatus(2)}>Received</p>
         </div>
 
 
@@ -298,7 +298,7 @@ const Dashboard = () => {
 
         <div className="flex items-center gap-2 mb-4 overflow-scroll">
           <p
-            className={`px-5 py-1 rounded-full border ${eventFilter === "all" ? "bg-black-2" : ""
+            className={`px-5 cursor-pointer py-1 rounded-full border ${eventFilter === "all" ? "bg-black-2/50" : ""
               }`}
             onClick={() => setEventFilter("all")}
           >
@@ -306,7 +306,7 @@ const Dashboard = () => {
           </p>
 
           <p
-            className={`px-5 py-1 rounded-full border ${eventFilter === "ongoing" ? "bg-black-2" : ""
+            className={`px-5 cursor-pointer py-1 rounded-full border ${eventFilter === "ongoing" ? "bg-black-2/50" : ""
               }`}
             onClick={() => setEventFilter("ongoing")}
           >
@@ -314,7 +314,7 @@ const Dashboard = () => {
           </p>
 
           <p
-            className={`px-5 py-1 rounded-full border ${eventFilter === "upcoming" ? "bg-black-2" : ""
+            className={`px-5 cursor-pointer py-1 rounded-full border ${eventFilter === "upcoming" ? "bg-black-2/50" : ""
               }`}
             onClick={() => setEventFilter("upcoming")}
           >
@@ -322,7 +322,7 @@ const Dashboard = () => {
           </p>
 
           <p
-            className={`px-5 py-1 rounded-full border ${eventFilter === "past" ? "bg-black-2" : ""
+            className={`px-5 cursor-pointer py-1 rounded-full border ${eventFilter === "past" ? "bg-black-2/50" : ""
               }`}
             onClick={() => setEventFilter("past")}
           >
