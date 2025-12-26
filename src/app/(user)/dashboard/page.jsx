@@ -230,8 +230,8 @@ const Dashboard = () => {
 
 
         <div className="flex items-center gap-2">
-          <p className={`text-lg md:text-md font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? 'bg-black-2' : ''}`} onClick={() => setCardStatus(1)}>Your</p>
-          <p className={`text-lg md:text-md font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? '' : 'bg-black-2'}`} onClick={() => setCardStatus(2)}>Received</p>
+          <p className={` md:text-md font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? 'bg-black-2' : ''}`} onClick={() => setCardStatus(1)}>Your</p>
+          <p className={` md:text-md font-medium  px-5 py-1 rounded-full border-gray-500 border-1 ${cardStatus == 1 ? '' : 'bg-black-2'}`} onClick={() => setCardStatus(2)}>Received</p>
         </div>
 
 
