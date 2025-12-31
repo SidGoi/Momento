@@ -204,11 +204,11 @@ const Dashboard = () => {
 
       <div className="text-white  my-10">
         <h1 className="font-bold text-4xl">Welcome Back, <br /> {user.fullName}!</h1>
-      <Link href={'/explore'}>
-        <ShimmerButton shimmerSize={'0.05em'} className='mt-4' shimmerColor={'#C47BE4'}>
-          Explore Public Events
-        </ShimmerButton>
-      </Link>
+        <Link href={'/explore'}>
+          <ShimmerButton shimmerSize={'0.05em'} className='mt-4' shimmerColor={'#C47BE4'}>
+            Explore Public Events
+          </ShimmerButton>
+        </Link>
         {/* <p className="text-xl mt-2">You have {events.length} upcoming events.</p> */}
       </div>
 
@@ -236,21 +236,21 @@ const Dashboard = () => {
 
 
         {myCards.length === 0 ? (
-            <div className="flex text-white font-semibold items-center justify-center flex-col">
-              <span className="text-7xl">
-                😐
-              </span>
-              <span className="text-2xl">
-                No Card yet
-              </span>
-              <Link href="/create/card" className="flex items-center justify-center">
-                <button className="inline-flex items-center p-3 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
-                  <span>Craete</span>
-                </button>
+          <div className="flex text-white gap-3 py-10 font-semibold items-center justify-center flex-col">
+            <span className="text-7xl">
+              🫥
+            </span>
+            <span className="text-2xl">
+              No Event yet
+            </span>
+            <Link href="/create/card" className="flex items-center justify-center">
+              <button className="inline-flex items-center px-5 py-2 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+                <span>Craete</span>
+              </button>
 
-              </Link>
-            </div>
+            </Link>
+          </div>
         ) : (
           <Carousel
             opts={{
@@ -333,21 +333,21 @@ const Dashboard = () => {
 
         <div className="">
           {filteredEvents.length === 0 ? (
-          <div className="flex text-white gap-3 py-10 font-semibold items-center justify-center flex-col">
-            <span className="text-7xl">
-              🫥
-            </span>
-            <span className="text-2xl">
-              No Event yet
-            </span>
-            <Link href="/create/card" className="flex items-center justify-center">
-              <button className="inline-flex items-center px-5 py-2 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
-                <span>Craete</span>
-              </button>
+            <div className="flex text-white gap-3 py-10 font-semibold items-center justify-center flex-col">
+              <span className="text-7xl">
+                🫥
+              </span>
+              <span className="text-2xl">
+                No Event yet
+              </span>
+              <Link href="/create/card" className="flex items-center justify-center">
+                <button className="inline-flex items-center px-5 py-2 cursor-pointer gap-2 md:px-6 md:py-2.5 bg-[#121212] border border-gray-600 text-white rounded-full font-semibold hover:bg-[#1f1f1f] transition-all active:scale-95">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z" /></svg>
+                  <span>Craete</span>
+                </button>
 
-            </Link>
-          </div>
+              </Link>
+            </div>
 
           ) : (
             <Carousel
