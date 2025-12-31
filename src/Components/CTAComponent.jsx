@@ -48,10 +48,6 @@ const CTAComponent = ({
                         </Link>
                     </div>
                 </div>
-
-                {/* Image / Graphic Content */}
-
-
             </div>
         </section>
     );

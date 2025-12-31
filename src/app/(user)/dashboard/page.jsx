@@ -361,7 +361,7 @@ const Dashboard = () => {
                 {filteredEvents.map((event) => (
                   <CarouselItem
                     key={event._id}
-                    className="basis-[70%] sm:basis-[60%] md:basis-[40%] lg:basis-[25%]"
+                    className="basis-70"
                   >
                     <EventCard data={event} onDelete={handleRemoveEvent} />
                   </CarouselItem>
