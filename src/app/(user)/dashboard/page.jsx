@@ -238,7 +238,7 @@ const Dashboard = () => {
         {myCards.length === 0 ? (
           <div className="flex text-white gap-3 py-10 font-semibold items-center justify-center flex-col">
             <span className="text-7xl">
-              🫥
+              😅
             </span>
             <span className="text-2xl">
               No Event yet
